@@ -5,22 +5,62 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Primary (Purple) */
+  --color-primary: #7c3aed; /* purple-600 */
+  --color-primary-light: #c084fc; /* purple-400 */
+  --color-primary-dark: #6b21a8; /* purple-800 */
+
+  /* Text */
+  --color-text-primary: #1f2937; /* gray-800 */
+  --color-text-secondary: #6b7280; /* gray-500 */
+
+  /* Border */
+  --color-border: #e5e7eb; /* gray-200 */
+  --color-border-input: #d1d5db; /* gray-300 */
+
+  /* Surface */
+  --color-surface: #ffffff; /* white */
+  --color-surface-muted: #f3f4f6; /* gray-200 */
+  --color-surface-muted-dark: #6b7280; /* gray-600 */
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+.animate-fade-out {
+  animation: fade-out 0.5s ease-in forwards;
 }
