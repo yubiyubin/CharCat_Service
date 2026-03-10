@@ -13,12 +13,18 @@ export default function Header() {
         <Link href="/" className="text-3xl font-bold text-primary-dark/85">
           ToolPick
         </Link>
-        <nav className="flex gap-4">
+        <nav className="flex gap-4 text-text-secondary">
           <Link
             href="/char-count"
-            className="text-text-secondary hover:text-primary/80 hover:font-bold transition-colors"
+            className="hover:text-primary/80 hover:font-bold transition-colors"
           >
             글자수 세기
+          </Link>
+          <Link
+            href="/kor-eng"
+            className="hover:text-primary/80 hover:font-bold transition-colors"
+          >
+            한영 변환
           </Link>
         </nav>
       </div>

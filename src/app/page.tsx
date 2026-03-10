@@ -1,4 +1,4 @@
-import ToolCard from "./_components/ToolCard";
+import ToolCard from "@/components/ToolCard";
 
 export default function Home() {
   const tools = [
@@ -9,10 +9,10 @@ export default function Home() {
       ready: true,
     },
     {
-      href: "/han-eng",
+      href: "/kor-eng",
       title: "한영 변환기",
       description: "한영 오타를 자동으로 변환해드립니다.",
-      ready: false,
+      ready: true,
     },
     {
       href: "/text-diff",

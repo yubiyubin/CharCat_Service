@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import ActionButton from "./_components/ActionButton";
-import StatCard from "../_components/StatCard";
-import Toast from "./_components/Toast";
+import ActionButton from "@/features/char-count/components/ActionButton";
+import StatCard from "@/features/char-count/components/StatCard";
+import Toast from "@/features/char-count/components/Toast";
 
 export default function CharCount() {
   const [text, setText] = useState("");
