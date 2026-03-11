@@ -26,6 +26,12 @@ export default function Header() {
           >
             한영 변환
           </Link>
+          <Link
+            href="/jamo-compose"
+            className="hover:text-primary/80 hover:font-bold transition-colors"
+          >
+            자모 조합/분해기
+          </Link>
         </nav>
       </div>
     </header>

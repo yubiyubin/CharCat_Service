@@ -20,6 +20,12 @@ export default function Home() {
       description: "두 텍스트의 차이점을 색상으로 한눈에 비교하세요.",
       ready: false,
     },
+    {
+      href: "/jamo-compose",
+      title: "자음 모음 조합/분해기",
+      description: "분리된 자음과 모음을 완성된 글자로 조합해드립니다.",
+      ready: true,
+    },
   ];
 
   return (

@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import ActionButton from "@/features/char-count/components/ActionButton";
+import ActionButton from "@/components/ActionButton";
 import StatCard from "@/features/char-count/components/StatCard";
-import Toast from "@/features/char-count/components/Toast";
+import Toast from "@/components/Toast";
+import { styles } from "@/styles";
 
 export default function CharCount() {
   const [text, setText] = useState("");
@@ -64,20 +65,16 @@ export default function CharCount() {
   ];
 
   return (
-    <div className="min-h-screen bg-surface">
-      <h1 className="text-3xl font-bold text-center pt-10 text-text-primary/70">
-        {" "}
-        글자수 세기
-      </h1>
-      <div className="max-w-3xl mx-auto mt-8 px-4">
+    <div className={styles.page}>
+      <h1 className={styles.title}> 글자수 세기</h1>
+      <div className={styles.container}>
         <textarea
           value={text}
           onChange={onChangeHandler}
           placeholder="여기에 텍스트를 입력하세요"
-          className="w-full h-64 p-4 border border-border-input rounded-lg text-text-primary/70 resize-none focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className={styles.textarea}
         />
-        {/* <div className="flex flex-wrap justify-center gap-5 mt-4"> */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-7 mt-4 ">
+        <div className={`${styles.buttonContainer} grid-cols-2 sm:grid-cols-4`}>
           {actions.map((action) => (
             <ActionButton
               key={action.label}
@@ -92,11 +89,9 @@ export default function CharCount() {
           ))}
         </div>
 
-        <section className="mt-16 mb-12 grid gap-6 sm:grid-cols-2 text-text-secondary font-medium">
-          <div className="bg-primary/10 rounded-lg p-6">
-            <h2 className="text-lg font-bold text-text-base">
-              글자수 세기가 필요한 경우
-            </h2>
+        <section className={`${styles.section} sm:grid-cols-2`}>
+          <div className={styles.sectionBackground}>
+            <h2 className={styles.sectionTitle}>글자수 세기가 필요한 경우</h2>
             <ul className="mt-4 space-y-3 text-sm ">
               <li className="flex justify-between border-b border-gray-100 pb-2">
                 <span>자기소개서</span>
@@ -121,10 +116,8 @@ export default function CharCount() {
             </ul>
           </div>
 
-          <div className="bg-primary/10 rounded-lg p-6">
-            <h2 className="text-lg font-bold text-text-base">
-              바이트 수는 왜 다를까?
-            </h2>
+          <div className={styles.sectionBackground}>
+            <h2 className={styles.sectionTitle}>바이트 수는 왜 다를까?</h2>
             <p className="mt-4 text-sm text-text-light leading-relaxed">
               영문, 숫자, 기본 기호는 1바이트이지만 한글은 UTF-8 기준으로 한
               글자당 3바이트를 차지합니다.
