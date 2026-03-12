@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { styles } from "@/styles";
 import ConvertArrow from "@/features/kor-eng/components/convertArrow";
 import Toast from "@/components/Toast";
@@ -18,6 +18,15 @@ export default function JamoCompose() {
     setToast(message);
     setTimeout(() => setToast(""), 2000);
   };
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [input]);
   const result = useMemo(() => {
     return direction === "compose" ? compose(input) : decompose(input);
   }, [input, direction]);
@@ -42,24 +51,22 @@ export default function JamoCompose() {
         자음 모음 {direction === "compose" ? "조합기" : "분해기"}
       </h1>
       <div className={styles.container}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="w-full h-64 flex flex-col border border-border-input rounded-lg text-text-primary/70 focus-within:ring-2 focus-within:ring-primary/30">
-            <div className="flex justify-center gap-2 mt-2 text-lg text-text-primary/60 font-bold items-center">
-              <span className="w-20 text-center">
+        <div className={styles.grid}>
+          <div className={styles.textareaContainer}>
+            <div className={styles.flexContainer}>
+              <span className={styles.w20TextCenter}>
                 {direction === "compose" ? "자음/모음" : "한글"}
               </span>
-              <button
-                onClick={onClickConvert}
-                className="flex items-center justify-center w-16 h-10 py-1 mx-2 bg-primary/15 text-text-primary/60 font-bold rounded-3xl hover:bg-primary/30 hover:text-text-primary transition-colors"
-              >
+              <button onClick={onClickConvert} className={styles.convertButton}>
                 <ConvertArrow />
               </button>
-              <span className="w-20 text-center">
+              <span className={styles.w20TextCenter}>
                 {direction === "compose" ? "한글" : "자음/모음"}
               </span>
             </div>
             <textarea
-              className="w-full flex-1 p-4 mt-2 border-none focus:outline-none rounded-lg text-text-primary/70 resize-none "
+              ref={textareaRef}
+              className={styles.noneBorderTextarea}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={
@@ -69,15 +76,15 @@ export default function JamoCompose() {
               }
             />
           </div>
-          <div
-            className={`${styles.textarea} bg-surface-muted/80 min-h-[16rem] h-auto  border-none pt-10 flex flex-col justify-between`}
-          >
-            {result || (
-              <span className="text-text-secondary/60  ">
-                변환 결과가 여기에 표시됩니다
-              </span>
-            )}
-            <div className="flex gap-3 mt-4 self-end">
+          <div className={styles.resultTextarea}>
+            <div className={styles.resultTextareaContent}>
+              {result || (
+                <span className={styles.resultTextareaPlaceholder}>
+                  변환 결과가 여기에 표시됩니다
+                </span>
+              )}
+            </div>
+            <div className={styles.actionButtonContainer}>
               <ActionButton onClick={copyResult} label="결과 복사" />
               <ActionButton onClick={clearInput} label="초기화" />
             </div>

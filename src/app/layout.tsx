@@ -22,6 +22,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <meta
+          name="naver-site-verification"
+          content="bb371ee08a54bfd76d9e769bbe7452bd981f428c"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BEMRGMHDPD"
           strategy="afterInteractive"
