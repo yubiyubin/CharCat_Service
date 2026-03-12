@@ -10,7 +10,7 @@ export default function Logo() {
         fill="#1f2937"
       >
         <tspan className="tool-text">Tool</tspan>
-        <tspan className="pick-text" fill="#9333ea">
+        <tspan className="pick-text" fill="#8041bc">
           Pick
         </tspan>
       </text>
@@ -30,7 +30,7 @@ export default function Logo() {
         width="57"
         height="3"
         rx="1.5"
-        fill="#9333ea"
+        fill="#8041bc"
       />
     </svg>
   );

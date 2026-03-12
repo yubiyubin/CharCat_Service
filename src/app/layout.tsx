@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <meta
           name="naver-site-verification"
-          content="bb371ee08a54bfd76d9e769bbe7452bd981f428c"
+          content="ea9322a414becac2d0089b3e3f990f8116cb2aae"
         />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BEMRGMHDPD"

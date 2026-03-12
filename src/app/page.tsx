@@ -18,7 +18,7 @@ export default function Home() {
       href: "/text-diff",
       title: "텍스트 비교",
       description: "두 텍스트의 차이점을 색상으로 한눈에 비교하세요.",
-      ready: false,
+      ready: true,
     },
     {
       href: "/jamo-compose",
