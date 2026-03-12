@@ -1,48 +1,26 @@
 "use client";
 
 import { engToKor, korToEng } from "@/features/kor-eng/utils/korEngMap";
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { styles } from "@/styles";
 import ConvertArrow from "@/features/kor-eng/components/convertArrow";
 import Toast from "@/components/Toast";
 import ActionButton from "@/components/ActionButton";
+import { useConverterState } from "@/hooks/useConverterState";
 
 export default function KorEng() {
-  const [input, setInput] = useState("");
+  const { input, setInput, toast, textareaRef, copyResult, clearInput } =
+    useConverterState();
   const [direction, setDirection] = useState<"korToEng" | "engToKor">(
     "korToEng",
   );
-  const [toast, setToast] = useState("");
 
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => setToast(""), 2000);
-  };
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [input]);
   const result = useMemo(() => {
     return direction === "korToEng" ? engToKor(input) : korToEng(input);
   }, [input, direction]);
 
-  const copyResult = () => {
-    navigator.clipboard.writeText(result);
-    showToast("변환 결과가 복사되었습니다");
-  };
-
   const onClickConvert = () => {
     setDirection(direction === "korToEng" ? "engToKor" : "korToEng");
-  };
-
-  const clearInput = () => {
-    setInput("");
-    showToast("초기화되었습니다");
   };
 
   return (
@@ -83,7 +61,7 @@ export default function KorEng() {
               )}
             </div>
             <div className={styles.actionButtonContainer}>
-              <ActionButton onClick={copyResult} label="결과 복사" />
+              <ActionButton onClick={() => copyResult(result)} label="결과 복사" />
               <ActionButton onClick={clearInput} label="초기화" />
             </div>
           </div>
