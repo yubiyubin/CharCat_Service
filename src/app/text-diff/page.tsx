@@ -6,19 +6,24 @@ import ConvertArrow from "@/features/kor-eng/components/convertArrow";
 import Toast from "@/components/Toast";
 import ActionButton from "@/components/ActionButton";
 import { useConverterState } from "@/hooks/useConverterState";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { dictionaries } from "@/locales";
 import { diffChars } from "diff";
 
 export default function TextDiff() {
   const { toast, textareaRef, copyResult, showToast } = useConverterState();
   const [modified, setModified] = useState("");
   const [original, setOriginal] = useState("");
+  const { t, language } = useLanguage();
+  const useCases = dictionaries[language].textDiff.useCases;
 
   const diffs = diffChars(original, modified);
   const hasDiff = diffs.some((part) => part.added || part.removed);
+
   const clearInput = () => {
     setOriginal("");
     setModified("");
-    showToast("초기화되었습니다");
+    showToast(t("common.toast.cleared"));
   };
 
   const result = useMemo(() => {
@@ -26,7 +31,7 @@ export default function TextDiff() {
       return;
     }
     if (!hasDiff) {
-      return "두 텍스트가 동일합니다";
+      return t("textDiff.resultSame");
     }
     return diffs.map((part, index) => {
       const color = part.added
@@ -40,7 +45,7 @@ export default function TextDiff() {
         </span>
       );
     });
-  }, [original, modified, diffs, hasDiff]);
+  }, [original, modified, diffs, hasDiff, t]);
 
   const onClickConvert = () => {
     setOriginal(modified);
@@ -49,31 +54,31 @@ export default function TextDiff() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>텍스트 비교</h1>
+      <h1 className={styles.title}>{t("textDiff.title")}</h1>
       <div className={styles.container}>
         <div className={styles.textareaContainer}>
           <div className={styles.flexContainer}>
-            <span className="flex-1 text-center">원본 텍스트</span>
+            <span className="flex-1 text-center">{t("textDiff.labelOriginal")}</span>
             <button onClick={onClickConvert} className={styles.convertButton}>
               <ConvertArrow />
             </button>
-            <span className="flex-1 text-center">수정된 텍스트</span>
+            <span className="flex-1 text-center">{t("textDiff.labelModified")}</span>
           </div>
-          <div className="grid gap-4 grid-cols-[1fr_auto_1fr] flex-1">
+          <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] flex-1 min-h-0">
             <textarea
               ref={textareaRef}
-              className={`${styles.noneBorderTextarea} h-full`}
+              className={styles.noneBorderTextarea}
               value={original}
               onChange={(e) => setOriginal(e.target.value)}
-              placeholder={"원본 텍스트를 입력하세요"}
+              placeholder={t("textDiff.placeholderOriginal")}
             />
-            <div className="w-[1px] bg-border-input my-4" />
+            <div className="hidden md:block w-[1px] bg-border-input my-4" />
             <textarea
               ref={textareaRef}
-              className={`${styles.noneBorderTextarea} h-full`}
+              className={styles.noneBorderTextarea}
               value={modified}
               onChange={(e) => setModified(e.target.value)}
-              placeholder={"수정된 텍스트를 입력하세요"}
+              placeholder={t("textDiff.placeholderModified")}
             />
           </div>
         </div>
@@ -81,7 +86,7 @@ export default function TextDiff() {
           <div className={styles.resultTextareaContent}>
             {result || (
               <span className={styles.resultTextareaPlaceholder}>
-                양쪽에 텍스트를 입력하면 차이점이 여기에 표시됩니다
+                {t("textDiff.resultPlaceholder")}
               </span>
             )}
           </div>
@@ -94,42 +99,32 @@ export default function TextDiff() {
                   const textToCopy = diffs
                     .map(
                       (part) =>
-                        `${part.added ? "+" : part.removed ? "-" : ""}${
-                          part.value
-                        }`,
+                        `${part.added ? "+" : part.removed ? "-" : ""}${part.value}`,
                     )
                     .join("");
                   copyResult(textToCopy);
                 }
               }}
-              label="결과 복사"
+              label={t("common.copyResult")}
             />
-            <ActionButton onClick={clearInput} label="초기화" />
+            <ActionButton onClick={clearInput} label={t("common.clear")} />
           </div>
         </div>
 
         <section className={styles.section}>
           <div className={styles.sectionBackground}>
-            <h2 className={styles.sectionTitle}> 텍스트 비교란?</h2>
-            <p className="mt-4 text-sm text-text-light leading-relaxed">
-              두 텍스트 사이의 차이점을 자동으로 찾아서 색상으로 표시해주는
-              도구입니다.<br></br> 원본에서 삭제된 부분은 빨간색으로, 새로
-              추가된 부분은 초록색으로 표시됩니다.
+            <h2 className={styles.sectionTitle}>{t("textDiff.sectionTitle")}</h2>
+            <p className="mt-4 text-sm text-text-light leading-relaxed whitespace-pre-line">
+              {t("textDiff.sectionDesc")}
             </p>
           </div>
           <div className={styles.sectionBackground}>
-            <h2 className={styles.sectionTitle}>이런 때 유용해요!</h2>
+            <h2 className={styles.sectionTitle}>{t("textDiff.useCasesTitle")}</h2>
             <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-              {[
-                "코드 리뷰에서 변경 사항 확인",
-                "문서 수정 시 변경 사항 추적",
-                "학술 논문에서 수정 사항 비교",
-                "번역문과 원문 대조",
-                "계약서, 약관 변경 사항 파악",
-              ].map((item, idx) => (
+              {useCases.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 hover:shadow-md transition-all duration-300 group"
+                  className="flex items-center p-3 sm:p-4 bg-surface rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 hover:shadow-md transition-all duration-300 group"
                 >
                   <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 mr-3 group-hover:bg-primary/20 transition-colors">
                     <svg

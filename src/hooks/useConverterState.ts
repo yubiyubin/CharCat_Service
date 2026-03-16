@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function useConverterState() {
   const [input, setInput] = useState("");
   const [toast, setToast] = useState("");
+  const { t } = useLanguage();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -21,21 +23,13 @@ export function useConverterState() {
 
   const copyResult = (result: string) => {
     navigator.clipboard.writeText(result);
-    showToast("변환 결과가 복사되었습니다");
+    showToast(t("common.toast.resultCopied"));
   };
 
   const clearInput = () => {
     setInput("");
-    showToast("초기화되었습니다");
+    showToast(t("common.toast.cleared"));
   };
 
-  return {
-    input,
-    setInput,
-    toast,
-    textareaRef,
-    copyResult,
-    clearInput,
-    showToast,
-  };
+  return { input, setInput, toast, textareaRef, copyResult, clearInput, showToast };
 }
