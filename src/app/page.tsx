@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="max-w-4xl mx-auto mt-12 px-4">
-      <h1 className="text-3xl font-bold text-center pt-10 text-text-primary/70">
+      <h1 className="text-3xl font-bold text-center pt-10 text-text-primary/70 dark:neon-text">
         {t("home.heroTitle1")} {t("home.heroTitle2")}
       </h1>
       <p className="text-center text-text-secondary mt-3">
@@ -54,13 +54,14 @@ export default function Home() {
       </div>
 
       <section className="mt-28 mb-16 mx-auto px-4 w-full">
-        <div className="bg-gradient-to-br from-primary/[0.03] to-surface rounded-3xl p-8 sm:p-12 border border-primary/10 shadow-sm relative overflow-hidden">
-          {/* Subtle accent glow */}
-          <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl mix-blend-multiply opacity-70"></div>
+        <div className="bg-gradient-to-br from-primary/[0.03] to-surface dark:from-primary/[0.06] dark:to-transparent rounded-3xl p-8 sm:p-12 border border-primary/10 dark:neon-border dark:neon-glow-subtle shadow-sm relative overflow-hidden transition-premium">
+          {/* Ambient glow orbs */}
+          <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen opacity-70 dark:animate-[neon-pulse_4s_ease-in-out_infinite]"></div>
+          <div className="hidden dark:block absolute bottom-0 left-0 -mb-32 -ml-32 w-80 h-80 bg-primary/8 rounded-full blur-3xl mix-blend-screen opacity-50 animate-[neon-pulse_6s_ease-in-out_infinite]"></div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 relative z-10">
             <div className="lg:col-span-4 flex flex-col justify-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-text-primary/70 tracking-tight mb-5 leading-snug">
+              <h2 className="text-2xl sm:text-3xl font-bold text-text-primary/70 dark:neon-text tracking-tight mb-5 leading-snug">
                 {t("home.heroTitle1")}
                 <br className="hidden lg:block" /> {t("home.heroTitle2")}
               </h2>
@@ -71,13 +72,13 @@ export default function Home() {
 
             <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 relative">
               {/* Divider for desktop */}
-              <div className="hidden lg:block absolute left-[-28px] top-0 bottom-0 w-[1px] bg-primary/10"></div>
+              <div className="hidden lg:block absolute left-[-28px] top-0 bottom-0 w-[1px] bg-primary/10 dark:bg-primary/20 dark:shadow-[0_0_8px_rgba(168,85,247,0.15)]"></div>
 
               <div>
-                <span className="inline-block text-[16px] font-bold text-primary/70 mb-3 tracking-widest uppercase bg-primary/[0.05] px-2 py-1 rounded">
+                <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
                   {t("home.feature1Badge")}
                 </span>
-                <h3 className="text-lg font-bold text-text-secondary  mb-2">
+                <h3 className="text-lg font-bold text-text-secondary mb-2">
                   {t("home.feature1Title")}
                 </h3>
                 <p className="text-text-primary/70 text-sm leading-relaxed">
@@ -86,7 +87,7 @@ export default function Home() {
               </div>
 
               <div>
-                <span className="inline-block text-[16px] font-bold text-primary/70 mb-3 tracking-widest uppercase bg-primary/[0.05] px-2 py-1 rounded">
+                <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
                   {t("home.feature2Badge")}
                 </span>
                 <h3 className="text-lg font-bold text-text-secondary mb-2">
@@ -97,8 +98,8 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="sm:col-span-2 pt-8 border-t border-primary/10">
-                <span className="inline-block text-[16px] font-bold text-primary/70 mb-3 tracking-widest uppercase bg-primary/[0.05] px-2 py-1 rounded">
+              <div className="sm:col-span-2 pt-8 border-t border-primary/10 dark:border-primary/15">
+                <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
                   {t("home.feature3Badge")}
                 </span>
                 <h3 className="text-lg font-bold text-text-primary/70 mb-2">
