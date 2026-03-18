@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { dictionaries, Language } from "@/locales";
 
 interface LanguageContextType {
@@ -12,16 +12,32 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    // Initialize state synchronously, only if on the client (browser)
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("language") as Language | null;
-      if (saved === "ko" || saved === "en") {
-        return saved;
+  // Use "ko" firmly as the default for matching Server-Side-Rendering
+  const [language, setLanguage] = useState<Language>("ko");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Only run this code on the browser after hydration
+    const saved = localStorage.getItem("language") as Language | null;
+    
+    if (saved === "ko" || saved === "en") {
+      // eslint-disable-next-line
+      setLanguage(saved);
+    } else {
+      const browserLang = window.navigator.language.toLowerCase();
+      if (!browserLang.startsWith("ko")) {
+        // eslint-disable-next-line
+        setLanguage("en");
       }
     }
-    return "ko"; // Default language
-  });
+    
+    setIsMounted(true);
+  }, []);
+
+  // Hydration fix: don't render translating children until language is confirmed
+  if (!isMounted) {
+    return null;
+  }
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);

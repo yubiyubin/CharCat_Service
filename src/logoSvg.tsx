@@ -14,8 +14,8 @@ export default function Logo() {
         fontSize="28"
         fontWeight="700"
       >
-        <tspan className="logo-tool">Tool</tspan>
-        <tspan className="logo-pick">Pick</tspan>
+        <tspan className="logo-tool">Char</tspan>
+        <tspan className="logo-pick">Cat</tspan>
       </text>
       <rect x="8" y="39" width="54" height="3" rx="1.5" className="logo-underline-light" />
       <rect x="62" y="39" width="54" height="3" rx="1.5" className="logo-underline-bold" />
