@@ -11,7 +11,7 @@ export default function Toast({ message }: { message: string }) {
 
   return (
     <div
-      className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-surface-muted-dark/70 text-white px-6 py-3 rounded-lg shadow-lg ${fading ? "animate-fade-out" : "animate-fade-in"}`}
+      className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-700/60 dark:bg-surface-muted-dark/80 text-white px-6 py-3 rounded-lg shadow-lg backdrop-blur-sm ${fading ? "animate-fade-out" : "animate-fade-in"}`}
     >
       {message}
     </div>

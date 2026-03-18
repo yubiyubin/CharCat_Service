@@ -21,25 +21,25 @@ export default function Header() {
   ];
 
   return (
-    <header className="border-b border-border bg-surface">
+    <header className="border-b border-border bg-surface dark:glass dark:neon-border dark:border-b-0 dark:border-b dark:border-primary/15 transition-premium">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link
           href="/"
-          className="text-3xl font-bold text-primary-dark/85 shrink-0"
+          className="text-3xl font-bold text-primary-dark/85 dark:neon-text shrink-0 transition-premium"
         >
           <Logo />
         </Link>
 
         {/* 데스크탑 nav */}
-        <nav className="hidden md:flex items-center gap-x-4 text-sm md:text-base text-text-secondary font-bold">
+        <nav className="hidden md:flex items-center gap-x-5 text-sm md:text-base text-text-secondary font-bold">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
               className={
                 pathname === href
-                  ? "text-primary/80 "
-                  : "hover:text-primary/80  transition-colors"
+                  ? "text-primary/90 dark:neon-text"
+                  : "hover:text-primary/80 dark:hover:text-primary-light transition-premium"
               }
             >
               {label}
@@ -53,7 +53,7 @@ export default function Header() {
           <ModeSwitch />
           {/* 모바일 햄버거 */}
           <button
-            className="md:hidden ml-1 p-2 rounded-full bg-surface-muted border border-border-input text-text-secondary hover:bg-primary/10 hover:text-primary transition-colors"
+            className="md:hidden ml-1 p-2 rounded-full bg-surface-muted border border-border-input text-text-secondary hover:bg-primary/10 hover:text-primary dark:neon-border-hover transition-premium"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="메뉴"
           >
@@ -68,7 +68,7 @@ export default function Header() {
 
       {/* 모바일 드롭다운 */}
       {menuOpen && (
-        <nav className="md:hidden border-t border-border bg-surface px-4 py-3 flex flex-col gap-3 text-sm text-text-secondary">
+        <nav className="md:hidden border-t border-border dark:glass dark:border-primary/10 px-4 py-3 flex flex-col gap-3 text-sm text-text-secondary">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -76,8 +76,8 @@ export default function Header() {
               onClick={() => setMenuOpen(false)}
               className={
                 pathname === href
-                  ? "text-primary "
-                  : "hover:text-primary transition-colors"
+                  ? "text-primary dark:neon-text"
+                  : "hover:text-primary transition-premium"
               }
             >
               {label}

@@ -6,8 +6,10 @@ export default function StatCard({
   label: string;
 }) {
   return (
-    <div className="bg-surface-muted/90 rounded-lg p-4 text-center">
-      <p className="text-2xl font-bold text-primary-dark/80">{value}</p>
+    <div className="bg-surface-muted/90 dark:glass-card dark:neon-border rounded-xl p-4 text-center hover:-translate-y-0.5 transition-premium">
+      <p className="text-2xl font-bold text-primary-dark/80 dark:text-primary-light dark:neon-text">
+        {value}
+      </p>
       <p className="text-sm text-text-secondary mt-1">{label}</p>
     </div>
   );

@@ -8,12 +8,9 @@ export default function ActionButton({
   return (
     <button
       onClick={onClick}
-      className="px-4 py-3 bg-primary/15 text-text-primary/60 font-bold rounded-lg hover:bg-primary/30 transition-colors"
+      className="px-4 py-3 bg-primary/15 text-text-primary/60 font-bold rounded-lg hover:bg-primary/30 dark:neon-border dark:neon-border-hover dark:hover:text-primary-light active:scale-[0.98] transition-premium"
     >
       {label}
     </button>
   );
 }
-
-//  className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
-// >

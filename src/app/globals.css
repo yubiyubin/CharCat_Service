@@ -36,11 +36,79 @@
   }
 }
 
+@keyframes neon-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes subtle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
 }
 .animate-fade-out {
   animation: fade-out 0.5s ease-in forwards;
+}
+
+/* Dark mode neon utilities */
+.dark .neon-border {
+  border-color: rgba(166, 63, 255, 0.3);
+  box-shadow:
+    0 0 8px rgba(166, 63, 255, 0.08),
+    0 0 24px rgba(166, 63, 255, 0.04);
+}
+.dark .neon-border-hover:hover {
+  border-color: rgba(166, 63, 255, 0.5);
+  box-shadow:
+    0 0 12px rgba(166, 63, 255, 0.15),
+    0 0 40px rgba(166, 63, 255, 0.08),
+    inset 0 0 12px rgba(166, 63, 255, 0.03);
+}
+.dark .neon-glow-subtle {
+  box-shadow:
+    0 0 20px rgba(166, 63, 255, 0.06),
+    0 0 60px rgba(166, 63, 255, 0.03);
+}
+.dark .neon-text {
+  text-shadow:
+    0 0 12px rgba(166, 63, 255, 0.4),
+    0 0 30px rgba(166, 63, 255, 0.15);
+}
+
+/* Glass morphism for dark mode */
+.dark .glass {
+  background: rgba(25, 25, 30, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.05);
+}
+.dark .glass-card {
+  background: rgba(30, 30, 38, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.08),
+    inset 0 0 10px rgba(168, 85, 247, 0.03);
+}
+
+/* Premium transition */
+.transition-premium {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :root {
@@ -77,35 +145,35 @@
 }
 
 .dark {
-  /* Shadcn variables - Dark Mode (Purple/Black) with less transparency and brighter base */
-  --background: #2d2d32;
+  /* Shadcn variables - Dark Mode (Premium deep dark with purple neon accents) */
+  --background: #110e1a;
   --foreground: rgba(255, 255, 255, 0.95);
-  --card: rgba(60, 60, 66, 0.9);
+  --card: rgba(26, 21, 38, 0.7);
   --card-foreground: rgba(255, 255, 255, 0.95);
-  --popover: rgba(39, 39, 42, 0.85);
+  --popover: rgba(22, 18, 32, 0.92);
   --popover-foreground: rgba(255, 255, 255, 0.95);
-  --primary: #a63fff;
+  --primary: #a855f7;
   --primary-foreground: #ffffff;
-  --secondary: rgba(255, 255, 255, 0.15);
+  --secondary: rgba(168, 85, 247, 0.1);
   --secondary-foreground: rgba(255, 255, 255, 0.95);
-  --muted: rgba(126, 44, 44, 0.1);
-  --muted-foreground: rgba(255, 255, 255, 0.7);
-  --accent: rgba(255, 255, 255, 0.15);
+  --muted: rgba(168, 85, 247, 0.06);
+  --muted-foreground: rgba(255, 255, 255, 0.65);
+  --accent: rgba(168, 85, 247, 0.12);
   --accent-foreground: rgba(255, 255, 255, 0.95);
-  --destructive: rgba(185, 28, 28, 0.9);
-  --border: rgba(255, 255, 255, 0.25);
-  --input: rgba(255, 255, 255, 0.25);
-  --ring: #a63fff;
+  --destructive: rgba(239, 68, 68, 0.8);
+  --border: rgba(168, 85, 247, 0.15);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #a855f7;
 
-  /* User Custom variables - Dark Mode with less transparency and brighter base */
-  --c-primary-light: #bf66ff;
-  --c-primary-dark: #9922ee;
-  --c-text-primary: rgb(255, 255, 255);
-  --c-text-secondary: rgba(255, 255, 255, 0.9);
-  --c-border-input: rgba(255, 255, 255, 0.25);
-  --c-surface: rgba(60, 60, 66, 0.9);
-  --c-surface-muted: rgba(214, 208, 208, 0.1);
-  --c-surface-muted-dark: rgba(255, 255, 255, 0.15);
+  /* User Custom variables - Dark Mode with neon-friendly palette */
+  --c-primary-light: #c084fc;
+  --c-primary-dark: #a855f7;
+  --c-text-primary: rgba(255, 255, 255, 0.95);
+  --c-text-secondary: rgba(255, 255, 255, 0.7);
+  --c-border-input: rgba(168, 85, 247, 0.2);
+  --c-surface: rgba(26, 21, 38, 0.7);
+  --c-surface-muted: rgba(168, 85, 247, 0.06);
+  --c-surface-muted-dark: rgba(168, 85, 247, 0.12);
 }
 
 @theme inline {
