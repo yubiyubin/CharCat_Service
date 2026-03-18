@@ -9,7 +9,7 @@ export const ko = {
     heroTitle1: "무료 온라인",
     heroTitle2: "텍스트 도구 모음",
     heroSubtitle:
-      "설치나 가입 없이 웹 브라우저에서 즉각 접속 가능한 ToolPick으로 문서 작성과 코딩, 학습의 효율을 극대화하세요.",
+      "설치나 가입 없이 웹 브라우저에서 즉각 접속 가능한 CharCat으로 문서 작성과 코딩, 학습의 효율을 극대화하세요.",
     feature1Badge: "01 / 문서 최적화",
     feature1Title: "글자수 및 바이트 계산",
     feature1Desc:

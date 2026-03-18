@@ -9,7 +9,7 @@ export const en = {
     heroTitle1: "Free Online",
     heroTitle2: "Text Tool Suite",
     heroSubtitle:
-      "Maximize your document writing, coding, and learning efficiency with ToolPick—accessible instantly from your web browser with no installation or sign-up required.",
+      "Maximize your document writing, coding, and learning efficiency with CharCat—accessible instantly from your web browser with no installation or sign-up required.",
     feature1Badge: "01 / Document Optimization",
     feature1Title: "Character & Byte Calculation",
     feature1Desc:
