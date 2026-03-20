@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/logoSvg";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -7,6 +7,7 @@ import ModeSwitch from "./ui/ModeSwitch";
 import LanguageButton from "./ui/LanguageButton";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Logo from "../../public/logo";
 
 export default function Header() {
   const pathname = usePathname();
@@ -25,7 +26,7 @@ export default function Header() {
       <div className="max-w-5xl mx-auto px-3 md:px-4 py-3 flex items-center justify-between gap-2">
         <Link
           href="/"
-          className="text-3xl font-bold text-primary-dark/85 dark:neon-text shrink-0 transition-premium"
+          className="flex items-center gap-0 text-3xl font-bold text-primary-dark/85 dark:neon-text shrink-0 transition-premium -ml-1"
         >
           <Logo />
         </Link>
