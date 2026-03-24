@@ -9,8 +9,9 @@ export default function Logo() {
       <Image
         src={theme === "dark" ? "/logo_dark.png" : "/logo.png"}
         alt="Logo"
-        width={100}
-        height={100}
+        width={130}
+        height={130}
+        className="w-[100px] h-auto md:w-[130px]"
       />
     </div>
   );

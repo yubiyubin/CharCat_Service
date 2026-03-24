@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { styles } from "@/styles";
 import ConvertArrow from "@/features/kor-eng/components/convertArrow";
 import Toast from "@/components/Toast";
@@ -9,11 +9,12 @@ import { useConverterState } from "@/hooks/useConverterState";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { dictionaries } from "@/locales";
 import { diffChars } from "diff";
+import { usePersistedState } from "@/hooks/usePersistedState";
 
 export default function TextDiff() {
-  const { toast, textareaRef, copyResult, showToast } = useConverterState();
-  const [modified, setModified] = useState("");
-  const [original, setOriginal] = useState("");
+  const { toast, textareaRef, copyResult, showToast } = useConverterState("text-diff");
+  const [modified, setModified] = usePersistedState("text-diff-modified", "");
+  const [original, setOriginal] = usePersistedState("text-diff-original", "");
   const { t, language } = useLanguage();
   const useCases = dictionaries[language].textDiff.useCases;
 
@@ -112,13 +113,13 @@ export default function TextDiff() {
         </div>
 
         <section className={styles.section}>
-          <div className={styles.sectionBackground}>
+          <div id="about" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("textDiff.sectionTitle")}</h2>
             <p className="mt-4 text-sm text-text-light leading-relaxed whitespace-pre-line">
               {t("textDiff.sectionDesc")}
             </p>
           </div>
-          <div className={styles.sectionBackground}>
+          <div id="use-cases" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("textDiff.useCasesTitle")}</h2>
             <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {useCases.map((item, idx) => (

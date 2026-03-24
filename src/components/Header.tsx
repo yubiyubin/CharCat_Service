@@ -11,14 +11,48 @@ import Logo from "../../public/logo";
 
 export default function Header() {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "/char-count", label: t("header.charCount") },
-    { href: "/kor-eng", label: t("header.korEng") },
-    { href: "/text-diff", label: t("header.textDiff") },
-    { href: "/jamo-compose", label: t("header.jamoCompose") },
+    {
+      href: "/char-count",
+      label: t("header.charCount"),
+      shortLabel: t("header.charCountShort"),
+    },
+    ...(language === "ko"
+      ? [
+          {
+            href: "/kor-eng",
+            label: t("header.korEng"),
+            shortLabel: t("header.korEngShort"),
+          },
+        ]
+      : []),
+    {
+      href: "/text-diff",
+      label: t("header.textDiff"),
+      shortLabel: t("header.textDiffShort"),
+    },
+    {
+      href: "/case-convert",
+      label: t("header.caseConvert"),
+      shortLabel: t("header.caseConvertShort"),
+    },
+    {
+      href: "/emoji",
+      label: t("header.emoji"),
+      shortLabel: t("header.emojiShort"),
+    },
+    ...(language === "ko"
+      ? [
+          {
+            href: "/jamo-compose",
+            label: t("header.jamoCompose"),
+            shortLabel: t("header.jamoComposeShort"),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -32,8 +66,8 @@ export default function Header() {
         </Link>
 
         {/* 데스크탑 nav */}
-        <nav className="hidden md:flex items-center gap-x-5 text-sm md:text-base text-text-secondary font-bold">
-          {navLinks.map(({ href, label }) => (
+        <nav className="hidden md:flex text-lg justify-between gap-x-8 lg:gap-x-5 text-base lg:text-base text-text-secondary font-bold pt-3 whitespace-nowrap">
+          {navLinks.map(({ href, label, shortLabel }) => (
             <Link
               key={href}
               href={href}
@@ -43,13 +77,14 @@ export default function Header() {
                   : "hover:text-primary/80 dark:hover:text-primary-light transition-premium"
               }
             >
-              {label}
+              <span className="lg:hidden">{shortLabel}</span>
+              <span className="hidden lg:inline">{label}</span>
             </Link>
           ))}
         </nav>
 
         {/* 우측 버튼 영역 */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 pt-3">
           <LanguageButton />
           <ModeSwitch />
           {/* 모바일 햄버거 */}

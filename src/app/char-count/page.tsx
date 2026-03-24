@@ -1,22 +1,18 @@
 "use client";
-import { useState } from "react";
 import ActionButton from "@/components/ActionButton";
 import StatCard from "@/features/char-count/components/StatCard";
 import Toast from "@/components/Toast";
 import { styles } from "@/styles";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { dictionaries } from "@/locales";
+import { useToast } from "@/hooks/useToast";
+import { usePersistedState } from "@/hooks/usePersistedState";
 
 export default function CharCount() {
-  const [text, setText] = useState("");
-  const [toast, setToast] = useState<string | null>(null);
+  const [text, setText] = usePersistedState("char-count-input", "");
+  const { toast, showToast } = useToast();
   const { t, language } = useLanguage();
   const dict = dictionaries[language].charCount;
-
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => setToast(null), 2000);
-  };
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -33,12 +29,12 @@ export default function CharCount() {
   };
 
   const statItems = [
-    { value: stats.charWithSpaces, label: t("charCount.stats.withSpaces") },
-    { value: stats.charWithoutSpaces, label: t("charCount.stats.withoutSpaces") },
-    { value: stats.words, label: t("charCount.stats.words") },
-    { value: stats.sentences, label: t("charCount.stats.sentences") },
-    { value: stats.lines, label: t("charCount.stats.lines") },
-    { value: stats.bytes, label: t("charCount.stats.bytes") },
+    { id: "char-with-spaces", value: stats.charWithSpaces, label: t("charCount.stats.withSpaces") },
+    { id: "char-without-spaces", value: stats.charWithoutSpaces, label: t("charCount.stats.withoutSpaces") },
+    { id: "word-count", value: stats.words, label: t("charCount.stats.words") },
+    { id: "sentence-count", value: stats.sentences, label: t("charCount.stats.sentences") },
+    { id: "line-count", value: stats.lines, label: t("charCount.stats.lines") },
+    { id: "byte-count", value: stats.bytes, label: t("charCount.stats.bytes") },
   ];
 
   const copyText = () => {
@@ -87,14 +83,16 @@ export default function CharCount() {
             />
           ))}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
+        <section id="stats" aria-label="Statistics" className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
           {statItems.map((item) => (
-            <StatCard key={item.label} value={item.value} label={item.label} />
+            <div key={item.id} id={item.id}>
+              <StatCard value={item.value} label={item.label} />
+            </div>
           ))}
-        </div>
+        </section>
 
         <section className={`${styles.section} sm:grid-cols-2`}>
-          <div className={styles.sectionBackground}>
+          <div id="char-limit-guide" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("charCount.section1Title")}</h2>
             <ul className="mt-4 space-y-3 text-sm">
               {dict.section1Items.map((item, idx) => (
@@ -109,7 +107,7 @@ export default function CharCount() {
             </ul>
           </div>
 
-          <div className={styles.sectionBackground}>
+          <div id="byte-guide" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("charCount.section2Title")}</h2>
             <p className="mt-4 text-sm text-text-light leading-relaxed">
               {t("charCount.section2Desc")}
