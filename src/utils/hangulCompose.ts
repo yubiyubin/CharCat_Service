@@ -109,7 +109,7 @@ const COMPOUND_FINALS: Record<string, string> = {
   ㅅㅅ: "ㅆ",
 };
 
-const DECOMPOSE_FINALS: Record<string, [string, string]> = {
+export const DECOMPOSE_FINALS: Record<string, [string, string]> = {
   ㄳ: ["ㄱ", "ㅅ"],
   ㄵ: ["ㄴ", "ㅈ"],
   ㄶ: ["ㄴ", "ㅎ"],
@@ -125,7 +125,7 @@ const DECOMPOSE_FINALS: Record<string, [string, string]> = {
   ㅆ: ["ㅅ", "ㅅ"],
 };
 
-const DECOMPOSE_MEDIALS: Record<string, [string, string]> = {
+export const DECOMPOSE_MEDIALS: Record<string, [string, string]> = {
   ㅘ: ["ㅗ", "ㅏ"],
   ㅙ: ["ㅗ", "ㅐ"],
   ㅚ: ["ㅗ", "ㅣ"],

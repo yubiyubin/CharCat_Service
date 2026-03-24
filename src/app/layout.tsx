@@ -5,10 +5,46 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "CharCat - 온라인 텍스트 도구 모음",
+  metadataBase: new URL("https://charcat.vercel.app"),
+  title: "CharCat - Free Online Text Tools · 무료 온라인 텍스트 도구",
   description:
-    "글자수 세기, 한영 변환, 텍스트 비교 등 유용한 텍스트 도구를 무료로 사용하세요.",
-  keywords: ["글자수 세기", "한영 변환", "텍스트 도구", "글자수 카운터"],
+    "Free online text tools: character counter, text diff checker, Korean-English converter & more. 글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
+  keywords: [
+    "글자수 세기",
+    "한영 변환",
+    "텍스트 도구",
+    "글자수 카운터",
+    "텍스트 비교",
+    "character counter",
+    "text diff checker",
+    "online text tools",
+    "free text tools",
+    "korean english converter",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "CharCat",
+    title: "CharCat - 무료 온라인 텍스트 도구",
+    description:
+      "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
+    url: "https://charcat.vercel.app",
+    locale: "ko_KR",
+    images: [
+      {
+        url: "/logo.png",
+        width: 973,
+        height: 338,
+        alt: "CharCat Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CharCat - 무료 온라인 텍스트 도구",
+    description:
+      "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
+    images: ["/logo.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },

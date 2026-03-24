@@ -4,6 +4,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @theme {
   --color-primary-light: var(--c-primary-light);
   --color-primary-dark: var(--c-primary-dark);

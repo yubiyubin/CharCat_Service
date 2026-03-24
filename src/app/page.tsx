@@ -4,7 +4,7 @@ import ToolCard from "@/components/ToolCard";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const tools = [
     {
@@ -13,12 +13,16 @@ export default function Home() {
       description: t("home.tools.charCountDesc"),
       ready: true,
     },
-    {
-      href: "/kor-eng",
-      title: t("header.korEng"),
-      description: t("home.tools.korEngDesc"),
-      ready: true,
-    },
+    ...(language === "ko"
+      ? [
+          {
+            href: "/kor-eng",
+            title: t("header.korEng"),
+            description: t("home.tools.korEngDesc"),
+            ready: true,
+          },
+        ]
+      : []),
     {
       href: "/text-diff",
       title: t("header.textDiff"),
@@ -26,11 +30,27 @@ export default function Home() {
       ready: true,
     },
     {
-      href: "/jamo-compose",
-      title: t("header.jamoCompose"),
-      description: t("home.tools.jamoComposeDesc"),
+      href: "/case-convert",
+      title: t("header.caseConvert"),
+      description: t("home.tools.caseConvertDesc"),
       ready: true,
     },
+    {
+      href: "/emoji",
+      title: t("header.emoji"),
+      description: t("home.tools.emojiDesc"),
+      ready: true,
+    },
+    ...(language === "ko"
+      ? [
+          {
+            href: "/jamo-compose",
+            title: t("header.jamoCompose"),
+            description: t("home.tools.jamoComposeDesc"),
+            ready: true,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -74,41 +94,26 @@ export default function Home() {
               {/* Divider for desktop */}
               <div className="hidden lg:block absolute left-[-28px] top-0 bottom-0 w-[1px] bg-primary/10 dark:bg-primary/20 dark:shadow-[0_0_8px_rgba(168,85,247,0.15)]"></div>
 
-              <div>
-                <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
-                  {t("home.feature1Badge")}
-                </span>
-                <h3 className="text-lg font-bold text-text-secondary mb-2">
-                  {t("home.feature1Title")}
-                </h3>
-                <p className="text-text-primary/70 text-sm leading-relaxed">
-                  {t("home.feature1Desc")}
-                </p>
-              </div>
-
-              <div>
-                <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
-                  {t("home.feature2Badge")}
-                </span>
-                <h3 className="text-lg font-bold text-text-secondary mb-2">
-                  {t("home.feature2Title")}
-                </h3>
-                <p className="text-text-primary/70 text-sm leading-relaxed">
-                  {t("home.feature2Desc")}
-                </p>
-              </div>
-
-              <div className="sm:col-span-2 pt-8 border-t border-primary/10 dark:border-primary/15">
-                <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
-                  {t("home.feature3Badge")}
-                </span>
-                <h3 className="text-lg font-bold text-text-primary/70 mb-2">
-                  {t("home.feature3Title")}
-                </h3>
-                <p className="text-text-primary/70 text-sm leading-relaxed max-w-3xl">
-                  {t("home.feature3Desc")}
-                </p>
-              </div>
+              {[
+                { badge: "home.feature1Badge", title: "home.feature1Title", desc: "home.feature1Desc" },
+                { badge: "home.feature2Badge", title: "home.feature2Title", desc: "home.feature2Desc" },
+                { badge: "home.feature3Badge", title: "home.feature3Title", desc: "home.feature3Desc", fullWidth: true },
+              ].map((feature) => (
+                <div
+                  key={feature.badge}
+                  className={feature.fullWidth ? "sm:col-span-2 pt-8 border-t border-primary/10 dark:border-primary/15" : undefined}
+                >
+                  <span className="inline-block text-[16px] font-bold text-primary/70 dark:text-primary-light mb-3 tracking-widest uppercase bg-primary/[0.05] dark:bg-primary/10 px-2 py-1 rounded dark:neon-border">
+                    {t(feature.badge)}
+                  </span>
+                  <h3 className="text-lg font-bold text-text-secondary mb-2">
+                    {t(feature.title)}
+                  </h3>
+                  <p className={`text-text-primary/70 text-sm leading-relaxed${feature.fullWidth ? " max-w-3xl" : ""}`}>
+                    {t(feature.desc)}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
