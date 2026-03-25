@@ -3,6 +3,7 @@
 import { engToKor, korToEng } from "@/features/kor-eng/utils/korEngMap";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ConverterPage from "@/components/ConverterPage";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function KorEng() {
   const { t } = useLanguage();
@@ -32,6 +33,12 @@ export default function KorEng() {
           { from: "ㅗ디ㅣㅐ", to: "hello" },
         ],
       }}
+      footer={
+        <RelatedTools
+          currentPage="/kor-eng"
+          tools={["/char-count", "/jamo-compose", "/text-diff", "/case-convert", "/emoji"]}
+        />
+      }
     />
   );
 }

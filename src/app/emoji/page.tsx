@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/useToast";
 import { emojiCategories, emojiKeywords } from "@/data/emojis";
 import { usePersistedState } from "@/hooks/usePersistedState";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function EmojiPicker() {
   const [activeCategory, setActiveCategory] = usePersistedState(
@@ -70,8 +71,8 @@ export default function EmojiPicker() {
 
         {/* 카테고리 탭 (검색 중이 아닐 때만) */}
         {!searchResults && (
-          <div className="overflow-x-auto pb-2 scrollbar-hide md:overflow-x-visible md:pb-0 mb-6">
-            <div className="grid grid-cols-[repeat(13,1fr)] gap-2 min-w-max md:min-w-0 md:grid-cols-7 lg:grid-cols-[repeat(13,1fr)]">
+          <div className="overflow-x-auto pb-2 scrollbar-hide mb-6">
+            <div className="grid grid-cols-[repeat(13,1fr)] gap-2 min-w-max lg:min-w-0 lg:grid-cols-[repeat(13,1fr)]">
             {emojiCategories.map((cat) => (
               <button
                 key={cat.id}
@@ -132,6 +133,10 @@ export default function EmojiPicker() {
 
         {toast && <Toast message={toast} />}
       </div>
+      <RelatedTools
+        currentPage="/emoji"
+        tools={["/char-count", "/case-convert", "/text-diff", "/kor-eng", "/jamo-compose"]}
+      />
     </div>
   );
 }

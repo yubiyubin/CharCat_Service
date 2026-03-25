@@ -10,9 +10,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { dictionaries } from "@/locales";
 import { diffChars } from "diff";
 import { usePersistedState } from "@/hooks/usePersistedState";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function TextDiff() {
-  const { toast, textareaRef, copyResult, showToast } = useConverterState("text-diff");
+  const { toast, copyResult, showToast } = useConverterState("text-diff");
   const [modified, setModified] = usePersistedState("text-diff-modified", "");
   const [original, setOriginal] = usePersistedState("text-diff-original", "");
   const { t, language } = useLanguage();
@@ -58,33 +59,48 @@ export default function TextDiff() {
       <h1 className={styles.title}>{t("textDiff.title")}</h1>
       <div className={styles.container}>
         <div className={styles.textareaContainer}>
-          <div className={styles.flexContainer}>
+          {/* 데스크탑 전용: 라벨 + 스왑 버튼 상단 행 */}
+          <div className={`${styles.flexContainer} hidden md:flex`}>
             <span className="flex-1 text-center">{t("textDiff.labelOriginal")}</span>
-            <button onClick={onClickConvert} className={styles.convertButton}>
+            <button data-testid="swap-button" onClick={onClickConvert} className={styles.convertButton}>
               <ConvertArrow />
             </button>
             <span className="flex-1 text-center">{t("textDiff.labelModified")}</span>
           </div>
-          <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] flex-1 min-h-0">
-            <textarea
-              ref={textareaRef}
-              className={styles.noneBorderTextarea}
-              value={original}
-              onChange={(e) => setOriginal(e.target.value)}
-              placeholder={t("textDiff.placeholderOriginal")}
-            />
+          <div className="grid gap-0 md:gap-4 md:grid-cols-[1fr_auto_1fr] flex-1 min-h-0">
+            {/* 원본 textarea */}
+            <div>
+              <p className="md:hidden text-center text-sm font-bold text-text-primary/60 mt-3 mb-0">
+                {t("textDiff.labelOriginal")}
+              </p>
+              <textarea
+                className={styles.noneBorderTextarea}
+                value={original}
+                onChange={(e) => setOriginal(e.target.value)}
+                placeholder={t("textDiff.placeholderOriginal")}
+              />
+            </div>
+            {/* 데스크탑 수직 구분선 */}
             <div className="hidden md:block w-[1px] bg-border-input my-4" />
-            <textarea
-              ref={textareaRef}
-              className={styles.noneBorderTextarea}
-              value={modified}
-              onChange={(e) => setModified(e.target.value)}
-              placeholder={t("textDiff.placeholderModified")}
-            />
+            {/* 수정 textarea */}
+            <div>
+              <div className="md:hidden flex items-center justify-between mt-2 mb-0 px-2">
+                <span className="text-sm font-bold text-text-primary/60">{t("textDiff.labelModified")}</span>
+                <button onClick={onClickConvert} className={`${styles.convertButton} text-xs`}>
+                  <ConvertArrow />
+                </button>
+              </div>
+              <textarea
+                className={styles.noneBorderTextarea}
+                value={modified}
+                onChange={(e) => setModified(e.target.value)}
+                placeholder={t("textDiff.placeholderModified")}
+              />
+            </div>
           </div>
         </div>
         <div className={`${styles.resultTextarea} mt-4`}>
-          <div className={styles.resultTextareaContent}>
+          <div data-testid="result-area" className={styles.resultTextareaContent}>
             {result || (
               <span className={styles.resultTextareaPlaceholder}>
                 {t("textDiff.resultPlaceholder")}
@@ -153,6 +169,10 @@ export default function TextDiff() {
 
         {toast && <Toast message={toast} />}
       </div>
+      <RelatedTools
+        currentPage="/text-diff"
+        tools={["/char-count", "/kor-eng", "/case-convert", "/jamo-compose", "/emoji"]}
+      />
     </div>
   );
 }

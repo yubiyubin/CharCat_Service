@@ -43,7 +43,9 @@ export const ko = {
   common: {
     resultPlaceholder: "변환 결과가 여기에 표시됩니다",
     copyResult: "결과 복사",
+    copy: "복사",
     clear: "초기화",
+    relatedToolsTitle: "다른 도구도 사용해보세요",
     toast: {
       resultCopied: "변환 결과가 복사되었습니다",
       cleared: "초기화되었습니다",
@@ -74,11 +76,18 @@ export const ko = {
     },
     section1Title: "글자수 세기가 필요한 경우",
     section1Items: [
-      { label: "자기소개서", limit: "500~1,000자" },
-      { label: "블로그 포스팅 (SEO 권장)", limit: "1,500~2,500자" },
-      { label: "트위터(X)", limit: "280자" },
-      { label: "인스타그램 캡션", limit: "2,200자" },
-      { label: "카카오톡 상태메시지", limit: "60자" },
+      { label: "자기소개서", limit: "500~1,000자", maxChars: 1000 },
+      { label: "공기업 자소서 (항목별)", limit: "500~800자", maxChars: 800 },
+      { label: "블로그 포스팅 (SEO 권장)", limit: "1,500~2,500자", maxChars: 2500 },
+      { label: "네이버 블로그 제목", limit: "100자", maxChars: 100 },
+      { label: "트위터(X)", limit: "280자", maxChars: 280 },
+      { label: "Threads", limit: "500자", maxChars: 500 },
+      { label: "인스타그램 캡션", limit: "2,200자", maxChars: 2200 },
+      { label: "카카오톡 상태메시지", limit: "60자", maxChars: 60 },
+      { label: "YouTube 제목 (검색 노출 권장)", limit: "70자 이내", maxChars: 70 },
+      { label: "YouTube 동영상 설명", limit: "5,000자", maxChars: 5000 },
+      { label: "LinkedIn 포스트", limit: "3,000자", maxChars: 3000 },
+      { label: "이메일 제목 (클릭률 최적)", limit: "50자 이내", maxChars: 50 },
     ],
     section2Title: "바이트 수는 왜 다를까?",
     section2Desc:

@@ -66,14 +66,14 @@ export default function Header() {
         </Link>
 
         {/* 데스크탑 nav */}
-        <nav className="hidden md:flex text-lg justify-between gap-x-8 lg:gap-x-5 text-base lg:text-base text-text-secondary font-bold pt-3 whitespace-nowrap">
+        <nav className="hidden md:flex justify-between gap-x-8 lg:gap-x-5 text-base text-text-secondary font-bold pt-3 whitespace-nowrap">
           {navLinks.map(({ href, label, shortLabel }) => (
             <Link
               key={href}
               href={href}
               className={
                 pathname === href
-                  ? "text-primary/90 dark:neon-text"
+                  ? "text-primary/90 dark:neon-text border-b-2 border-primary/60 dark:border-primary pb-0.5"
                   : "hover:text-primary/80 dark:hover:text-primary-light transition-premium"
               }
             >

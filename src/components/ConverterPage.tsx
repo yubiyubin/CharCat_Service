@@ -28,6 +28,8 @@ interface ConverterPageProps {
   examples: { title: string; items: Example[] };
   /** sessionStorage 캐시 키 */
   pageKey?: string;
+  /** 페이지 하단에 렌더링할 추가 콘텐츠 (RelatedTools 등) */
+  footer?: React.ReactNode;
 }
 
 export default function ConverterPage({
@@ -38,6 +40,7 @@ export default function ConverterPage({
   about,
   examples,
   pageKey = "converter",
+  footer,
 }: ConverterPageProps) {
   const { input, setInput, toast, textareaRef, copyResult, clearInput } =
     useConverterState(pageKey);
@@ -63,6 +66,7 @@ export default function ConverterPage({
             <div className={styles.flexContainer}>
               <span className={styles.w20TextCenter}>{fromLabel}</span>
               <button
+                data-testid="direction-toggle"
                 onClick={() => setIsForward((prev) => !prev)}
                 className={styles.convertButton}
               >
@@ -79,7 +83,7 @@ export default function ConverterPage({
             />
           </div>
           <div className={styles.resultTextarea}>
-            <div className={styles.resultTextareaContent}>
+            <div data-testid="result-area" className={styles.resultTextareaContent}>
               {result || (
                 <span className={styles.resultTextareaPlaceholder}>
                   {t("common.resultPlaceholder")}
@@ -127,6 +131,7 @@ export default function ConverterPage({
 
         {toast && <Toast message={toast} />}
       </div>
+      {footer}
     </div>
   );
 }

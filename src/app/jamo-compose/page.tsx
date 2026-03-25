@@ -3,6 +3,7 @@
 import { compose, decompose } from "@/utils/hangulCompose";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ConverterPage from "@/components/ConverterPage";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function JamoCompose() {
   const { t } = useLanguage();
@@ -32,6 +33,12 @@ export default function JamoCompose() {
           { from: "ㄱㅏㅁㅅㅏㅎㅏㅁㄴㅣㄷㅏ", to: "감사합니다" },
         ],
       }}
+      footer={
+        <RelatedTools
+          currentPage="/jamo-compose"
+          tools={["/char-count", "/kor-eng", "/text-diff", "/case-convert", "/emoji"]}
+        />
+      }
     />
   );
 }

@@ -23,10 +23,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/jamo-compose",
+    languages: {
+      ko: "https://charcat.cyb-labs.com/jamo-compose",
+      en: "https://charcat.cyb-labs.com/jamo-compose",
+    },
   },
 };
 
-const BASE_URL = "https://charcat.vercel.app";
+const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function JamoComposeLayout({
   children,
@@ -38,6 +42,7 @@ export default function JamoComposeLayout({
       name="CharCat Jamo Composer"
       alternateName="CharCat 자모 조합기"
       url={`${BASE_URL}/jamo-compose`}
+      breadcrumbLabel="자모 조합기"
       description="Free online tool to compose separated Korean Jamo (consonants and vowels) into complete Hangul characters, or decompose Hangul into individual Jamo."
       faqs={[
         {
