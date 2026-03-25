@@ -24,10 +24,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/text-diff",
+    languages: {
+      ko: "https://charcat.cyb-labs.com/text-diff",
+      en: "https://charcat.cyb-labs.com/text-diff",
+    },
   },
 };
 
-const BASE_URL = "https://charcat.vercel.app";
+const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function TextDiffLayout({
   children,
@@ -39,6 +43,7 @@ export default function TextDiffLayout({
       name="CharCat Text Diff Checker"
       alternateName="CharCat 텍스트 비교"
       url={`${BASE_URL}/text-diff`}
+      breadcrumbLabel="텍스트 비교"
       description="Free online tool that compares two texts and highlights differences at the character level with color coding."
       faqs={[
         {

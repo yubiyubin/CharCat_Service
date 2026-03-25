@@ -44,7 +44,9 @@ export const en = {
   common: {
     resultPlaceholder: "Result will appear here",
     copyResult: "Copy Result",
+    copy: "Copy",
     clear: "Clear",
+    relatedToolsTitle: "Try these tools too",
     toast: {
       resultCopied: "Result copied",
       cleared: "Cleared",
@@ -75,11 +77,16 @@ export const en = {
     },
     section1Title: "When You Need Character Count",
     section1Items: [
-      { label: "Personal Statement", limit: "500–1,000 chars" },
-      { label: "Blog Post (SEO recommended)", limit: "1,500–2,500 chars" },
-      { label: "Twitter (X)", limit: "280 chars" },
-      { label: "Instagram Caption", limit: "2,200 chars" },
-      { label: "KakaoTalk Status", limit: "60 chars" },
+      { label: "Personal Statement / Cover Letter", limit: "500–1,000 chars", maxChars: 1000 },
+      { label: "Blog Post (SEO recommended)", limit: "1,500–2,500 chars", maxChars: 2500 },
+      { label: "Twitter (X)", limit: "280 chars", maxChars: 280 },
+      { label: "Threads", limit: "500 chars", maxChars: 500 },
+      { label: "Instagram Caption", limit: "2,200 chars", maxChars: 2200 },
+      { label: "YouTube Title (search-optimized)", limit: "under 70 chars", maxChars: 70 },
+      { label: "YouTube Description", limit: "5,000 chars", maxChars: 5000 },
+      { label: "LinkedIn Post", limit: "3,000 chars", maxChars: 3000 },
+      { label: "Email Subject (best CTR)", limit: "under 50 chars", maxChars: 50 },
+      { label: "KakaoTalk Status", limit: "60 chars", maxChars: 60 },
     ],
     section2Title: "Why Are Byte Counts Different?",
     section2Desc:

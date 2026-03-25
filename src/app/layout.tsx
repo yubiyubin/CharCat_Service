@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://charcat.vercel.app"),
+  metadataBase: new URL("https://charcat.cyb-labs.com"),
   title: "CharCat - Free Online Text Tools · 무료 온라인 텍스트 도구",
   description:
     "Free online text tools: character counter, text diff checker, Korean-English converter & more. 글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
@@ -27,23 +27,16 @@ export const metadata: Metadata = {
     title: "CharCat - 무료 온라인 텍스트 도구",
     description:
       "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
-    url: "https://charcat.vercel.app",
+    url: "https://charcat.cyb-labs.com",
     locale: "ko_KR",
-    images: [
-      {
-        url: "/logo.png",
-        width: 973,
-        height: 338,
-        alt: "CharCat Logo",
-      },
-    ],
+    images: [],
   },
   twitter: {
     card: "summary_large_image",
     title: "CharCat - 무료 온라인 텍스트 도구",
     description:
       "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
-    images: ["/logo.png"],
+    images: [],
   },
   icons: {
     icon: [
@@ -57,6 +50,13 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   verification: {
     google: "rBhNrr7WAhxWSwWEnD7orcp4eYNTIgkF2-2-XqqStjM",
+  },
+  alternates: {
+    canonical: "https://charcat.cyb-labs.com",
+    languages: {
+      ko: "https://charcat.cyb-labs.com",
+      en: "https://charcat.cyb-labs.com",
+    },
   },
 };
 
@@ -86,6 +86,30 @@ export default function RootLayout({
         <meta
           name="naver-site-verification"
           content="b3789da6217c590f0fb2a27d524f7e591d089c64"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "CharCat",
+              alternateName: "CharCat 텍스트 도구",
+              url: "https://charcat.cyb-labs.com",
+              description:
+                "글자수 세기, 한영 변환, 텍스트 비교, 자모 조합, 대소문자 변환, 이모티콘 복사. 무료 온라인 텍스트 도구 모음.",
+              inLanguage: ["ko", "en"],
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://charcat.cyb-labs.com/emoji?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
         />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BEMRGMHDPD"

@@ -22,10 +22,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/kor-eng",
+    languages: {
+      ko: "https://charcat.cyb-labs.com/kor-eng",
+      en: "https://charcat.cyb-labs.com/kor-eng",
+    },
   },
 };
 
-const BASE_URL = "https://charcat.vercel.app";
+const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function HanEngLayout({
   children,
@@ -37,6 +41,7 @@ export default function HanEngLayout({
       name="CharCat Korean-English Converter"
       alternateName="CharCat 한영 변환기"
       url={`${BASE_URL}/kor-eng`}
+      breadcrumbLabel="한영 변환"
       description="Free online tool that converts text typed with the wrong Korean/English keyboard layout back to the intended language."
       faqs={[
         {

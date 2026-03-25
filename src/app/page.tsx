@@ -9,6 +9,7 @@ export default function Home() {
   const tools = [
     {
       href: "/char-count",
+      icon: "📊",
       title: t("header.charCount"),
       description: t("home.tools.charCountDesc"),
       ready: true,
@@ -17,6 +18,7 @@ export default function Home() {
       ? [
           {
             href: "/kor-eng",
+            icon: "🔄",
             title: t("header.korEng"),
             description: t("home.tools.korEngDesc"),
             ready: true,
@@ -25,18 +27,21 @@ export default function Home() {
       : []),
     {
       href: "/text-diff",
+      icon: "🔍",
       title: t("header.textDiff"),
       description: t("home.tools.textDiffDesc"),
       ready: true,
     },
     {
       href: "/case-convert",
+      icon: "Aa",
       title: t("header.caseConvert"),
       description: t("home.tools.caseConvertDesc"),
       ready: true,
     },
     {
       href: "/emoji",
+      icon: "😊",
       title: t("header.emoji"),
       description: t("home.tools.emojiDesc"),
       ready: true,
@@ -45,6 +50,7 @@ export default function Home() {
       ? [
           {
             href: "/jamo-compose",
+            icon: "🧩",
             title: t("header.jamoCompose"),
             description: t("home.tools.jamoComposeDesc"),
             ready: true,
@@ -61,11 +67,12 @@ export default function Home() {
       <p className="text-center text-text-secondary mt-3">
         {t("home.pickTool")}
       </p>
-      <div className="grid gap-4 px-4 mt-10 max-w-5xl mx-auto mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-4 mt-10 max-w-5xl mx-auto mb-10">
         {tools.map((tool) => (
           <ToolCard
             key={tool.href}
             href={tool.href}
+            icon={tool.icon}
             title={tool.title}
             description={tool.description}
             ready={tool.ready}

@@ -28,10 +28,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/char-count",
+    languages: {
+      ko: "https://charcat.cyb-labs.com/char-count",
+      en: "https://charcat.cyb-labs.com/char-count",
+    },
   },
 };
 
-const BASE_URL = "https://charcat.vercel.app";
+const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function CharCountLayout({
   children,
@@ -44,6 +48,7 @@ export default function CharCountLayout({
       alternateName="CharCat 글자수 세기"
       url={`${BASE_URL}/char-count`}
       description="Free online tool to count characters, words, sentences, lines, and bytes in real-time. Supports both Korean and English."
+      breadcrumbLabel="글자수 세기"
       faqs={[
         {
           question: "공백 포함 글자수와 공백 제외 글자수의 차이는?",

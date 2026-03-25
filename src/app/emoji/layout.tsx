@@ -27,10 +27,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/emoji",
+    languages: {
+      ko: "https://charcat.cyb-labs.com/emoji",
+      en: "https://charcat.cyb-labs.com/emoji",
+    },
   },
 };
 
-const BASE_URL = "https://charcat.vercel.app";
+const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function EmojiLayout({
   children,
@@ -42,6 +46,7 @@ export default function EmojiLayout({
       name="CharCat Emoji & Symbol Picker"
       alternateName="CharCat 이모티콘 특수문자 모음"
       url={`${BASE_URL}/emoji`}
+      breadcrumbLabel="이모티콘 · 특수문자"
       description="Free online tool to search, browse and copy 1,500+ emojis, special characters, and symbols organized by 13 categories."
       faqs={[
         {

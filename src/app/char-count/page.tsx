@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { dictionaries } from "@/locales";
 import { useToast } from "@/hooks/useToast";
 import { usePersistedState } from "@/hooks/usePersistedState";
+import RelatedTools from "@/components/RelatedTools";
 
 export default function CharCount() {
   const [text, setText] = usePersistedState("char-count-input", "");
@@ -95,15 +96,42 @@ export default function CharCount() {
           <div id="char-limit-guide" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("charCount.section1Title")}</h2>
             <ul className="mt-4 space-y-3 text-sm">
-              {dict.section1Items.map((item, idx) => (
-                <li
-                  key={idx}
-                  className={`flex justify-between pb-2 ${idx < dict.section1Items.length - 1 ? "border-b border-gray-100" : ""}`}
-                >
-                  <span>{item.label}</span>
-                  <span className="font-medium">{item.limit}</span>
-                </li>
-              ))}
+              {dict.section1Items.map((item, idx) => {
+                const pct = item.maxChars && stats.charWithSpaces > 0
+                  ? Math.min((stats.charWithSpaces / item.maxChars) * 100, 100)
+                  : 0;
+                const barColor = stats.charWithSpaces > (item.maxChars ?? 0)
+                  ? "bg-red-400"
+                  : pct >= 90
+                  ? "bg-orange-400"
+                  : pct >= 70
+                  ? "bg-yellow-400"
+                  : "bg-emerald-400";
+                return (
+                  <li
+                    key={idx}
+                    className={`pb-2 ${idx < dict.section1Items.length - 1 ? "border-b border-gray-100" : ""}`}
+                  >
+                    <div className="flex justify-between">
+                      <span>{item.label}</span>
+                      <span className="font-medium">{item.limit}</span>
+                    </div>
+                    {item.maxChars && stats.charWithSpaces > 0 && (
+                      <div className="mt-1.5">
+                        <div className="w-full h-1 bg-black/5 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full transition-all duration-300 ${barColor}`}
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                        <p className={`text-right text-[10px] mt-0.5 ${barColor.replace("bg-", "text-")}`}>
+                          {stats.charWithSpaces.toLocaleString()} / {item.maxChars.toLocaleString()}
+                        </p>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -124,6 +152,10 @@ export default function CharCount() {
         </section>
         {toast && <Toast message={toast} />}
       </div>
+      <RelatedTools
+        currentPage="/char-count"
+        tools={["/kor-eng", "/text-diff", "/case-convert", "/jamo-compose", "/emoji"]}
+      />
     </div>
   );
 }

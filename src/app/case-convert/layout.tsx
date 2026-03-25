@@ -24,10 +24,14 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/case-convert",
+    languages: {
+      ko: "https://charcat.cyb-labs.com/case-convert",
+      en: "https://charcat.cyb-labs.com/case-convert",
+    },
   },
 };
 
-const BASE_URL = "https://charcat.vercel.app";
+const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function CaseConvertLayout({
   children,
@@ -39,6 +43,7 @@ export default function CaseConvertLayout({
       name="CharCat Case Converter"
       alternateName="CharCat 대소문자 변환"
       url={`${BASE_URL}/case-convert`}
+      breadcrumbLabel="대소문자 변환"
       description="Free online tool to convert text case to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, and CONSTANT_CASE."
       faqs={[
         {
