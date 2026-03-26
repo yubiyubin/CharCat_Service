@@ -100,13 +100,19 @@ export default function CharCount() {
                 const pct = item.maxChars && stats.charWithSpaces > 0
                   ? Math.min((stats.charWithSpaces / item.maxChars) * 100, 100)
                   : 0;
-                const barColor = stats.charWithSpaces > (item.maxChars ?? 0)
-                  ? "bg-red-400"
+                const isOver = stats.charWithSpaces > (item.maxChars ?? 0);
+                const barColor = isOver
+                  ? "bg-red-400 dark:bg-red-500"
                   : pct >= 90
-                  ? "bg-orange-400"
+                  ? "bg-amber-400 dark:bg-amber-500"
                   : pct >= 70
-                  ? "bg-yellow-400"
-                  : "bg-emerald-400";
+                  ? "bg-primary/60 dark:bg-primary/80"
+                  : "bg-primary";
+                const textColor = isOver
+                  ? "text-red-400 dark:text-red-500"
+                  : pct >= 90
+                  ? "text-amber-400 dark:text-amber-500"
+                  : "text-primary dark:text-primary-light";
                 return (
                   <li
                     key={idx}
@@ -118,13 +124,13 @@ export default function CharCount() {
                     </div>
                     {item.maxChars && stats.charWithSpaces > 0 && (
                       <div className="mt-1.5">
-                        <div className="w-full h-1 bg-black/5 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all duration-300 ${barColor}`}
                             style={{ width: `${pct}%` }}
                           />
                         </div>
-                        <p className={`text-right text-[10px] mt-0.5 ${barColor.replace("bg-", "text-")}`}>
+                        <p className={`text-right text-[10px] mt-0.5 ${textColor}`}>
                           {stats.charWithSpaces.toLocaleString()} / {item.maxChars.toLocaleString()}
                         </p>
                       </div>
