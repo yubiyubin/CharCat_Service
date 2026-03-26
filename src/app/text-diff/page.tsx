@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { styles } from "@/styles";
 import ConvertArrow from "@/features/kor-eng/components/convertArrow";
 import Toast from "@/components/Toast";
@@ -8,7 +8,7 @@ import ActionButton from "@/components/ActionButton";
 import { useConverterState } from "@/hooks/useConverterState";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { dictionaries } from "@/locales";
-import { diffChars } from "diff";
+import { diffArrays } from "diff";
 import { usePersistedState } from "@/hooks/usePersistedState";
 import RelatedTools from "@/components/RelatedTools";
 
@@ -19,8 +19,9 @@ export default function TextDiff() {
   const { t, language } = useLanguage();
   const useCases = dictionaries[language].textDiff.useCases;
 
-  const diffs = diffChars(original, modified);
-  const hasDiff = diffs.some((part) => part.added || part.removed);
+  // 줄 배열로 변환 후 diffArrays로 비교 — 줄 간 1:1 매칭을 명시적으로 제어하기 위함
+  const lineDiffs = diffArrays(original.split("\n"), modified.split("\n"));
+  const hasDiff = lineDiffs.some((part) => part.added || part.removed);
 
   const clearInput = () => {
     setOriginal("");
@@ -29,25 +30,93 @@ export default function TextDiff() {
   };
 
   const result = useMemo(() => {
-    if (!original && !modified) {
-      return;
+    if (!original && !modified) return;
+    if (!hasDiff) return t("textDiff.resultSame");
+
+    const tokenize = (text: string): string[] =>
+      text.split(/(\s+)/).filter((tok) => tok.length > 0);
+
+    const ADDED = "text-green-700 bg-green-200/70 dark:text-green-300 dark:bg-green-500/20";
+    const REMOVED = "text-rose-600 line-through bg-rose-100 dark:text-rose-300 dark:bg-rose-500/20";
+    const SAME = "text-gray-600/80 dark:text-gray-300/90";
+
+    // 단어 diff 결과를 렌더링: 연속된 removed+added 쌍은 그룹 박스 + 화살표로 표시
+    const renderWordDiffs = (
+      wordDiffs: ReturnType<typeof diffArrays<string>>,
+      keyPrefix: string,
+    ): React.ReactElement[] => {
+      const result: React.ReactElement[] = [];
+      let wi = 0;
+      while (wi < wordDiffs.length) {
+        const wp = wordDiffs[wi];
+        const wn = wordDiffs[wi + 1];
+        if (wp.removed && wn?.added) {
+          result.push(
+            <span
+              key={`${keyPrefix}-${wi}-grp`}
+              className="inline-flex items-center gap-1 rounded bg-primary/5 dark:bg-primary/10 px-1.5 py-0.5 mx-0.5"
+            >
+              <span className={REMOVED}>{wp.value.join("")}</span>
+              <span className="text-text-secondary/50 text-xs select-none">→</span>
+              <span className={ADDED}>{wn.value.join("")}</span>
+            </span>,
+          );
+          wi += 2;
+        } else {
+          const cls = wp.added ? ADDED : wp.removed ? REMOVED : SAME;
+          wp.value.forEach((tok, ti) =>
+            result.push(<span key={`${keyPrefix}-${wi}-${ti}`} className={cls}>{tok}</span>),
+          );
+          wi++;
+        }
+      }
+      return result;
+    };
+
+    const elements: React.ReactElement[] = [];
+    let i = 0;
+
+    while (i < lineDiffs.length) {
+      const cur = lineDiffs[i];
+      const next = lineDiffs[i + 1];
+
+      if (i > 0) elements.push(<br key={`br-pre-${i}`} />);
+
+      if (cur.removed && next?.added) {
+        // 변경된 줄 블록: 줄 단위로 1:1 매칭 후 단어 인라인 diff
+        const removedLines = cur.value;
+        const addedLines = next.value;
+        const pairCount = Math.min(removedLines.length, addedLines.length);
+
+        for (let j = 0; j < pairCount; j++) {
+          if (j > 0) elements.push(<br key={`br-${i}-${j}`} />);
+          const wordDiffs = diffArrays(tokenize(removedLines[j]), tokenize(addedLines[j]));
+          elements.push(...renderWordDiffs(wordDiffs, `${i}-${j}`));
+        }
+        // 남은 removed 줄 (대응하는 added 없음)
+        for (let j = pairCount; j < removedLines.length; j++) {
+          elements.push(<br key={`br-rm-${i}-${j}`} />);
+          elements.push(<span key={`${i}-rm-${j}`} className={REMOVED}>{removedLines[j]}</span>);
+        }
+        // 남은 added 줄 (대응하는 removed 없음)
+        for (let j = pairCount; j < addedLines.length; j++) {
+          elements.push(<br key={`br-add-${i}-${j}`} />);
+          elements.push(<span key={`${i}-add-${j}`} className={ADDED}>{addedLines[j]}</span>);
+        }
+        i += 2;
+      } else {
+        // 변경 없거나 단독 추가/삭제 블록
+        const cls = cur.added ? ADDED : cur.removed ? REMOVED : SAME;
+        cur.value.forEach((line, li) => {
+          if (li > 0) elements.push(<br key={`br-${i}-${li}`} />);
+          elements.push(<span key={`${i}-${li}`} className={cls}>{line}</span>);
+        });
+        i++;
+      }
     }
-    if (!hasDiff) {
-      return t("textDiff.resultSame");
-    }
-    return diffs.map((part, index) => {
-      const color = part.added
-        ? "text-green-600/60 bg-green-200/70"
-        : part.removed
-          ? "text-rose-400/70 line-through bg-rose-100"
-          : "text-gray-600/80";
-      return (
-        <span key={index} className={color}>
-          {part.value}
-        </span>
-      );
-    });
-  }, [original, modified, diffs, hasDiff, t]);
+
+    return elements;
+  }, [original, modified, lineDiffs, hasDiff, t]);
 
   const onClickConvert = () => {
     setOriginal(modified);
@@ -113,12 +182,11 @@ export default function TextDiff() {
                 if (typeof result === "string") {
                   copyResult(result);
                 } else {
-                  const textToCopy = diffs
-                    .map(
-                      (part) =>
-                        `${part.added ? "+" : part.removed ? "-" : ""}${part.value}`,
-                    )
-                    .join("");
+                  const prefix = (part: { added?: boolean; removed?: boolean }) =>
+                    part.added ? "+" : part.removed ? "-" : "";
+                  const textToCopy = lineDiffs
+                    .map((part) => part.value.map((l) => `${prefix(part)}${l}`).join("\n"))
+                    .join("\n");
                   copyResult(textToCopy);
                 }
               }}
