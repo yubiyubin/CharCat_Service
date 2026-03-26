@@ -102,17 +102,17 @@ export default function CharCount() {
                   : 0;
                 const isOver = stats.charWithSpaces > (item.maxChars ?? 0);
                 const barColor = isOver
-                  ? "bg-red-400 dark:bg-red-500"
+                  ? "bg-red-400/50 dark:bg-red-500/50"
                   : pct >= 90
-                  ? "bg-amber-400 dark:bg-amber-500"
+                  ? "bg-amber-400/50 dark:bg-amber-500/50"
                   : pct >= 70
-                  ? "bg-primary/60 dark:bg-primary/80"
-                  : "bg-primary";
+                  ? "bg-primary/50"
+                  : "bg-primary/50";
                 const textColor = isOver
-                  ? "text-red-400 dark:text-red-500"
+                  ? "text-red-400/50 dark:text-red-500/50"
                   : pct >= 90
-                  ? "text-amber-400 dark:text-amber-500"
-                  : "text-primary dark:text-primary-light";
+                  ? "text-amber-400/50 dark:text-amber-500/50"
+                  : "text-primary/50 dark:text-primary-light/50";
                 return (
                   <li
                     key={idx}
