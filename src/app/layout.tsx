@@ -29,14 +29,12 @@ export const metadata: Metadata = {
       "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
     url: "https://charcat.cyb-labs.com",
     locale: "ko_KR",
-    images: [],
   },
   twitter: {
     card: "summary_large_image",
     title: "CharCat - 무료 온라인 텍스트 도구",
     description:
       "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
-    images: [],
   },
   icons: {
     icon: [
