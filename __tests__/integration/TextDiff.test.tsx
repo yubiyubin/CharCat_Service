@@ -125,8 +125,8 @@ describe("TextDiff 페이지 — 텍스트 비교", () => {
     // diff 결과가 +/-로 prefixed된 문자열로 복사됨
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
     const copied = vi.mocked(navigator.clipboard.writeText).mock.calls[0][0];
-    expect(copied).toContain("-b");
-    expect(copied).toContain("+x");
+    expect(copied).toContain("-abc");
+    expect(copied).toContain("+axc");
   });
 
   it("초기화 버튼 클릭 시 양쪽 textarea 모두 초기화", async () => {
