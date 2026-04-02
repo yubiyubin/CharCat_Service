@@ -84,7 +84,7 @@ describe("toSnakeCase", () => {
   test.each([
     ["hello world", "hello_world"],
     ["Hello World", "hello_world"],
-    ["helloWorld", "helloworld"],
+    ["helloWorld", "hello_world"],
     ["hello-world", "hello_world"],
     ["", ""],
   ])('"%s" → "%s"', (input, expected) => {

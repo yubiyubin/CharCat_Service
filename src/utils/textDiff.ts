@@ -18,6 +18,8 @@ export interface LineDiffResult {
    * changed 타입은 줄 내 단어 단위 인라인 diff를 포함.
    */
   lines: LinePart[];
+  /** 복사용 포맷: added → "+줄", removed → "-줄", unchanged → " 줄" */
+  copyText: string;
 }
 
 export type LinePart =
@@ -28,14 +30,21 @@ export type LinePart =
 
 /** 두 텍스트를 줄 단위 → 단어 단위 2단계로 비교해 렌더링용 구조 반환 */
 export function computeTextDiff(original: string, modified: string): LineDiffResult {
-  if (!original && !modified) return { hasDiff: false, lines: [] };
+  if (!original && !modified) return { hasDiff: false, lines: [], copyText: "" };
 
   const originalLines = original.split("\n");
   const modifiedLines = modified.split("\n");
   const lineDiffs = diffArrays(originalLines, modifiedLines);
 
   const hasDiff = lineDiffs.some((p) => p.added || p.removed);
-  if (!hasDiff) return { hasDiff: false, lines: [] };
+  if (!hasDiff) return { hasDiff: false, lines: [], copyText: "" };
+
+  const copyText = lineDiffs
+    .map((part) => {
+      const prefix = part.added ? "+" : part.removed ? "-" : " ";
+      return part.value.map((l) => `${prefix}${l}`).join("\n");
+    })
+    .join("\n");
 
   const lines: LinePart[] = [];
   let i = 0;
@@ -73,5 +82,5 @@ export function computeTextDiff(original: string, modified: string): LineDiffRes
     }
   }
 
-  return { hasDiff, lines };
+  return { hasDiff, lines, copyText };
 }

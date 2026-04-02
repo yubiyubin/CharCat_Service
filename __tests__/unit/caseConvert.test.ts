@@ -167,14 +167,14 @@ describe("toConstantCase", () => {
   });
 });
 
-describe("toAlternatingCase (TODO: 미구현 placeholder)", () => {
-  it("현재 구현은 입력 텍스트를 그대로 반환", () => {
-    // toAlternatingCase는 현재 placeholder 상태 (TODO(human))
-    // 구현 완료 전까지는 입력값이 그대로 반환됨
-    const input = "hello world";
-    expect(toAlternatingCase(input)).toBe(input);
+describe("toAlternatingCase", () => {
+  it("알파벳을 교대로 대소문자 변환", () => {
+    expect(toAlternatingCase("hello world")).toBe("hElLo WoRlD");
   });
   it("빈 문자열 처리", () => {
     expect(toAlternatingCase("")).toBe("");
+  });
+  it("숫자와 특수문자는 그대로 유지", () => {
+    expect(toAlternatingCase("abc123!")).toBe("aBc123!");
   });
 });

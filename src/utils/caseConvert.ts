@@ -1,3 +1,13 @@
+/** 비알파벳/숫자/한글 문자를 제거하고 단어 배열로 분리 */
+function splitWords(text: string): string[] {
+  return text
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[^a-zA-Z0-9가-힣]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
 /** UPPERCASE */
 export function toUpperCase(text: string): string {
   return text.toUpperCase();
@@ -25,10 +35,7 @@ export function toSentenceCase(text: string): string {
 
 /** camelCase */
 export function toCamelCase(text: string): string {
-  return text
-    .replace(/[^a-zA-Z0-9가-힣]+/g, " ")
-    .trim()
-    .split(/\s+/)
+  return splitWords(text)
     .map((word, i) =>
       i === 0
         ? word.toLowerCase()
@@ -39,48 +46,39 @@ export function toCamelCase(text: string): string {
 
 /** PascalCase */
 export function toPascalCase(text: string): string {
-  return text
-    .replace(/[^a-zA-Z0-9가-힣]+/g, " ")
-    .trim()
-    .split(/\s+/)
+  return splitWords(text)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join("");
 }
 
 /** snake_case */
 export function toSnakeCase(text: string): string {
-  return text
-    .replace(/[^a-zA-Z0-9가-힣]+/g, " ")
-    .trim()
-    .split(/\s+/)
-    .join("_")
-    .toLowerCase();
+  return splitWords(text).join("_").toLowerCase();
 }
 
 /** kebab-case */
 export function toKebabCase(text: string): string {
-  return text
-    .replace(/[^a-zA-Z0-9가-힣]+/g, " ")
-    .trim()
-    .split(/\s+/)
-    .join("-")
-    .toLowerCase();
+  return splitWords(text).join("-").toLowerCase();
 }
 
 /** CONSTANT_CASE */
 export function toConstantCase(text: string): string {
-  return text
-    .replace(/[^a-zA-Z0-9가-힣]+/g, " ")
-    .trim()
-    .split(/\s+/)
-    .join("_")
-    .toUpperCase();
+  return splitWords(text).join("_").toUpperCase();
 }
 
-/** TODO(human): aLtErNaTiNg CaSe 변환 함수를 구현하세요.
- * 입력: "hello world" → 출력: "hElLo WoRlD"
- * 알파벳 문자만 대소문자를 교대로 변환하고, 공백·숫자 등은 그대로 유지합니다.
- */
+/** aLtErNaTiNg CaSe — 알파벳만 대소문자를 교대로 변환, 비알파벳 문자는 유지 */
 export function toAlternatingCase(text: string): string {
-  return text; // 여기에 구현
+  let alphaIndex = 0;
+  return text
+    .split("")
+    .map((char) => {
+      if (/[a-zA-Z]/.test(char)) {
+        const result =
+          alphaIndex % 2 === 0 ? char.toLowerCase() : char.toUpperCase();
+        alphaIndex++;
+        return result;
+      }
+      return char;
+    })
+    .join("");
 }
