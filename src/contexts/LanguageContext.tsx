@@ -26,7 +26,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     } else {
       const browserLang = window.navigator.language.toLowerCase();
       if (!browserLang.startsWith("ko")) {
-        // eslint-disable-next-line
         setLanguage("en");
       }
     }
