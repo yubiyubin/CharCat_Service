@@ -3,9 +3,10 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Metadata } from "next";
 import Script from "next/script";
+import { ROOT_STRUCTURED_DATA, BASE_URL } from "@/data/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://charcat.cyb-labs.com"),
+  metadataBase: new URL(BASE_URL),
   title: "CharCat - Free Online Text Tools · 무료 온라인 텍스트 도구",
   description:
     "Free online text tools: character counter, text diff checker, Korean-English converter & more. 글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     title: "CharCat - 무료 온라인 텍스트 도구",
     description:
       "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
-    url: "https://charcat.cyb-labs.com",
+    url: BASE_URL,
     locale: "ko_KR",
     images: [],
   },
@@ -52,10 +53,10 @@ export const metadata: Metadata = {
     google: "rBhNrr7WAhxWSwWEnD7orcp4eYNTIgkF2-2-XqqStjM",
   },
   alternates: {
-    canonical: "https://charcat.cyb-labs.com",
+    canonical: BASE_URL,
     languages: {
-      ko: "https://charcat.cyb-labs.com",
-      en: "https://charcat.cyb-labs.com",
+      ko: BASE_URL,
+      en: BASE_URL,
     },
   },
 };
@@ -89,27 +90,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "CharCat",
-              alternateName: "CharCat 텍스트 도구",
-              url: "https://charcat.cyb-labs.com",
-              description:
-                "글자수 세기, 한영 변환, 텍스트 비교, 자모 조합, 대소문자 변환, 이모티콘 복사. 무료 온라인 텍스트 도구 모음.",
-              inLanguage: ["ko", "en"],
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://charcat.cyb-labs.com/emoji?q={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ROOT_STRUCTURED_DATA) }}
         />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BEMRGMHDPD"

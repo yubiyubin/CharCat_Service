@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import JsonLdLayout from "@/components/JsonLdLayout";
+import { BASE_URL } from "@/data/seo";
 
 export const metadata: Metadata = {
   title:
@@ -29,8 +30,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
-const BASE_URL = "https://charcat.cyb-labs.com";
 
 export default function JamoComposeLayout({
   children,

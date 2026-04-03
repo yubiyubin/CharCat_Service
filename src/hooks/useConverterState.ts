@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/useToast";
 import { usePersistedState } from "@/hooks/usePersistedState";
+import { copyToClipboard } from "@/utils/clipboard";
 
 export function useConverterState(pageKey: string = "converter") {
   const [input, setInput] = usePersistedState(`${pageKey}-input`, "");
@@ -18,9 +19,9 @@ export function useConverterState(pageKey: string = "converter") {
     }
   }, [input]);
 
-  const copyResult = (result: string) => {
-    navigator.clipboard.writeText(result);
-    showToast(t("common.toast.resultCopied"));
+  const copyResult = async (result: string) => {
+    const ok = await copyToClipboard(result);
+    showToast(ok ? t("common.toast.resultCopied") : t("common.toast.copyFailed"));
   };
 
   const clearInput = () => {

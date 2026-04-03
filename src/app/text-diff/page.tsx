@@ -1,26 +1,34 @@
 "use client";
 
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { styles } from "@/styles";
 import ConvertArrow from "@/features/kor-eng/components/convertArrow";
 import Toast from "@/components/Toast";
 import ActionButton from "@/components/ActionButton";
-import { useConverterState } from "@/hooks/useConverterState";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { dictionaries } from "@/locales";
-import { diffChars } from "diff";
 import { usePersistedState } from "@/hooks/usePersistedState";
 import RelatedTools from "@/components/RelatedTools";
+import { computeTextDiff } from "@/utils/textDiff";
+import { useToast } from "@/hooks/useToast";
+import { copyToClipboard } from "@/utils/clipboard";
+
+// 색상 상수 — 모듈 최상단에 선언해 렌더마다 재생성 방지
+const ADDED = "text-green-700 bg-green-200/70 dark:text-green-300 dark:bg-green-500/20";
+const REMOVED = "text-rose-600 line-through bg-rose-100 dark:text-rose-300 dark:bg-rose-500/20";
+const SAME = "text-gray-600/80 dark:text-gray-300/90";
 
 export default function TextDiff() {
-  const { toast, copyResult, showToast } = useConverterState("text-diff");
+  const { toast, showToast } = useToast();
   const [modified, setModified] = usePersistedState("text-diff-modified", "");
   const [original, setOriginal] = usePersistedState("text-diff-original", "");
   const { t, language } = useLanguage();
-  const useCases = dictionaries[language].textDiff.useCases;
 
-  const diffs = diffChars(original, modified);
-  const hasDiff = diffs.some((part) => part.added || part.removed);
+  const copyResult = async (text: string) => {
+    const ok = await copyToClipboard(text);
+    showToast(ok ? t("common.toast.resultCopied") : t("common.toast.copyFailed"));
+  };
+  const useCases = dictionaries[language].textDiff.useCases;
 
   const clearInput = () => {
     setOriginal("");
@@ -28,26 +36,57 @@ export default function TextDiff() {
     showToast(t("common.toast.cleared"));
   };
 
+  const diffResult = useMemo(
+    () => computeTextDiff(original, modified),
+    [original, modified],
+  );
+
   const result = useMemo(() => {
-    if (!original && !modified) {
-      return;
-    }
-    if (!hasDiff) {
-      return t("textDiff.resultSame");
-    }
-    return diffs.map((part, index) => {
-      const color = part.added
-        ? "text-green-600/60 bg-green-200/70"
-        : part.removed
-          ? "text-rose-400/70 line-through bg-rose-100"
-          : "text-gray-600/80";
-      return (
-        <span key={index} className={color}>
-          {part.value}
-        </span>
-      );
+    if (!original && !modified) return;
+
+    const { hasDiff, lines } = diffResult;
+    if (!hasDiff) return t("textDiff.resultSame");
+
+    const elements: React.ReactElement[] = [];
+
+    lines.forEach((line, i) => {
+      if (i > 0) elements.push(<br key={`br-${i}`} />);
+
+      if (line.kind === "changed") {
+        // 단어 단위 인라인 diff: removed+added 연속 쌍은 그룹 박스 + 화살표로 묶어 표시
+        const segs = line.segments;
+        let si = 0;
+        while (si < segs.length) {
+          const seg = segs[si];
+          const next = segs[si + 1];
+          if (seg.type === "removed" && next?.type === "added") {
+            elements.push(
+              <span
+                key={`${i}-${si}-grp`}
+                className="inline-flex items-center gap-1 rounded bg-primary/5 dark:bg-primary/10 px-1.5 py-0.5 mx-0.5"
+              >
+                <span className={REMOVED}>{seg.tokens.join("")}</span>
+                <span className="text-text-secondary/50 text-xs select-none">→</span>
+                <span className={ADDED}>{next.tokens.join("")}</span>
+              </span>,
+            );
+            si += 2;
+          } else {
+            const cls = seg.type === "added" ? ADDED : seg.type === "removed" ? REMOVED : SAME;
+            seg.tokens.forEach((tok, ti) =>
+              elements.push(<span key={`${i}-${si}-${ti}`} className={cls}>{tok}</span>),
+            );
+            si++;
+          }
+        }
+      } else {
+        const cls = line.kind === "added" ? ADDED : line.kind === "removed" ? REMOVED : SAME;
+        elements.push(<span key={`${i}`} className={cls}>{line.text}</span>);
+      }
     });
-  }, [original, modified, diffs, hasDiff, t]);
+
+    return elements;
+  }, [original, modified, t, diffResult]);
 
   const onClickConvert = () => {
     setOriginal(modified);
@@ -113,13 +152,7 @@ export default function TextDiff() {
                 if (typeof result === "string") {
                   copyResult(result);
                 } else {
-                  const textToCopy = diffs
-                    .map(
-                      (part) =>
-                        `${part.added ? "+" : part.removed ? "-" : ""}${part.value}`,
-                    )
-                    .join("");
-                  copyResult(textToCopy);
+                  copyResult(diffResult.copyText);
                 }
               }}
               label={t("common.copyResult")}

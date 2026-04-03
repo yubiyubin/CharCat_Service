@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://charcat.cyb-labs.com";
+import { BASE_URL } from "@/data/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/useToast";
 import { emojiCategories, emojiKeywords } from "@/data/emojis";
 import { usePersistedState } from "@/hooks/usePersistedState";
 import RelatedTools from "@/components/RelatedTools";
+import { copyToClipboard } from "@/utils/clipboard";
 
 export default function EmojiPicker() {
   const [activeCategory, setActiveCategory] = usePersistedState(
@@ -18,9 +19,9 @@ export default function EmojiPicker() {
   const { toast, showToast } = useToast();
   const { t } = useLanguage();
 
-  const handleCopy = (char: string) => {
-    navigator.clipboard.writeText(char);
-    showToast(`${char} ${t("emoji.toast.copied")}`);
+  const handleCopy = async (char: string) => {
+    const ok = await copyToClipboard(char);
+    showToast(ok ? `${char} ${t("emoji.toast.copied")}` : t("emoji.toast.copyFailed"));
   };
 
   const activeData = emojiCategories.find((c) => c.id === activeCategory);

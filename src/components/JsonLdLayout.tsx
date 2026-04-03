@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-
-const SITE_URL = "https://charcat.cyb-labs.com";
+import { BASE_URL } from "@/data/seo";
 
 interface FAQ {
   question: string;
@@ -48,7 +47,7 @@ export default function JsonLdLayout({
             "@type": "ListItem",
             position: 1,
             name: "CharCat",
-            item: SITE_URL,
+            item: BASE_URL,
           },
           {
             "@type": "ListItem",

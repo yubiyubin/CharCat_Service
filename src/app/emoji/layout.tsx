@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import JsonLdLayout from "@/components/JsonLdLayout";
+import { BASE_URL } from "@/data/seo";
 
 export const metadata: Metadata = {
   title:
@@ -34,8 +35,6 @@ export const metadata: Metadata = {
   },
 };
 
-const BASE_URL = "https://charcat.cyb-labs.com";
-
 export default function EmojiLayout({
   children,
 }: {
@@ -50,9 +49,9 @@ export default function EmojiLayout({
       description="Free online tool to search, browse and copy 1,500+ emojis, special characters, and symbols organized by 13 categories."
       faqs={[
         {
-          question: "이모티콘를 어떻게 복사하나요?",
+          question: "이모티콘을 어떻게 복사하나요?",
           answer:
-            "원하는 이모티콘를 클릭하면 자동으로 클립보드에 복사됩니다. 이후 Ctrl+V (Mac: Cmd+V)로 어디에든 붙여넣을 수 있습니다.",
+            "원하는 이모티콘을 클릭하면 자동으로 클립보드에 복사됩니다. 이후 Ctrl+V (Mac: Cmd+V)로 어디에든 붙여넣을 수 있습니다.",
         },
         {
           question: "How do I copy an emoji?",
