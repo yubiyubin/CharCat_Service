@@ -38,10 +38,6 @@ export default function ToolCard({
     );
   }
 
-  // TODO(human): Implement getNeonHoverStyle() - return a className string
-  // that creates the perfect neon hover effect for dark mode cards.
-  // Consider: box-shadow layers, border-color transitions, and subtle scale.
-
   return (
     <Link
       key={href}
