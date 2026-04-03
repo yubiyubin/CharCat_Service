@@ -11,6 +11,7 @@ import { usePersistedState } from "@/hooks/usePersistedState";
 import RelatedTools from "@/components/RelatedTools";
 import { computeTextDiff } from "@/utils/textDiff";
 import { useToast } from "@/hooks/useToast";
+import { copyToClipboard } from "@/utils/clipboard";
 
 // 색상 상수 — 모듈 최상단에 선언해 렌더마다 재생성 방지
 const ADDED = "text-green-700 bg-green-200/70 dark:text-green-300 dark:bg-green-500/20";
@@ -23,9 +24,9 @@ export default function TextDiff() {
   const [original, setOriginal] = usePersistedState("text-diff-original", "");
   const { t, language } = useLanguage();
 
-  const copyResult = (text: string) => {
-    navigator.clipboard.writeText(text);
-    showToast(t("common.toast.resultCopied"));
+  const copyResult = async (text: string) => {
+    const ok = await copyToClipboard(text);
+    showToast(ok ? t("common.toast.resultCopied") : t("common.toast.copyFailed"));
   };
   const useCases = dictionaries[language].textDiff.useCases;
 

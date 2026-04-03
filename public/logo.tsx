@@ -8,7 +8,7 @@ export default function Logo() {
     <div className="flex items-center translation-y-[2px]">
       <Image
         src={theme === "dark" ? "/logo_dark.png" : "/logo.png"}
-        alt="Logo"
+        alt="CharCat"
         width={130}
         height={130}
         className="w-[100px] h-auto md:w-[130px]"

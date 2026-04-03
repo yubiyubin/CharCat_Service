@@ -17,7 +17,7 @@ export const en = {
     heroTitle1: "Free Online",
     heroTitle2: "Text Tool Suite",
     heroSubtitle:
-      "Maximize your document writing, coding, and learning efficiency with CharCat—accessible instantly from your web browser with no installation or sign-up required.",
+      "No install. No sign-up. Open your browser and start in seconds.",
     feature1Badge: "01 / Document Optimization",
     feature1Title: "Character & Byte Calculation",
     feature1Desc:
@@ -177,10 +177,10 @@ export const en = {
     title: "Emoji & Special Characters",
     searchPlaceholder: "Search emoji...",
     clickHint: "Click to copy to clipboard 📋",
-    searchResult: "results found",
-    searchUnit: "",
+    searchResult: "Found",
+    searchUnit: " results",
     noResults: "No results found",
-    toast: { copied: "Copied!" },
+    toast: { copied: "Copied!", copyFailed: "Failed to copy." },
     sectionTitle: "What is Emoji & Symbol Picker?",
     sectionDesc:
       "A tool that organizes frequently used emojis and special characters by category so you can copy them with a single click. Perfect for social media, blogs, and documents.",

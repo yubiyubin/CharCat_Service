@@ -3,10 +3,10 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Metadata } from "next";
 import Script from "next/script";
-import { ROOT_STRUCTURED_DATA } from "@/data/seo";
+import { ROOT_STRUCTURED_DATA, BASE_URL } from "@/data/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://charcat.cyb-labs.com"),
+  metadataBase: new URL(BASE_URL),
   title: "CharCat - Free Online Text Tools · 무료 온라인 텍스트 도구",
   description:
     "Free online text tools: character counter, text diff checker, Korean-English converter & more. 글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "CharCat - 무료 온라인 텍스트 도구",
     description:
       "글자수 세기, 텍스트 비교, 한영 변환 등 무료 텍스트 도구를 설치 없이 사용하세요.",
-    url: "https://charcat.cyb-labs.com",
+    url: BASE_URL,
     locale: "ko_KR",
   },
   twitter: {
@@ -51,10 +51,10 @@ export const metadata: Metadata = {
     google: "rBhNrr7WAhxWSwWEnD7orcp4eYNTIgkF2-2-XqqStjM",
   },
   alternates: {
-    canonical: "https://charcat.cyb-labs.com",
+    canonical: BASE_URL,
     languages: {
-      ko: "https://charcat.cyb-labs.com",
-      en: "https://charcat.cyb-labs.com",
+      ko: BASE_URL,
+      en: BASE_URL,
     },
   },
 };

@@ -8,6 +8,7 @@ import { dictionaries } from "@/locales";
 import { useToast } from "@/hooks/useToast";
 import { usePersistedState } from "@/hooks/usePersistedState";
 import RelatedTools from "@/components/RelatedTools";
+import { copyToClipboard } from "@/utils/clipboard";
 
 function getGaugeColors(pct: number, isOver: boolean): { barColor: string; textColor: string } {
   if (isOver) return {
@@ -86,9 +87,9 @@ export default function CharCount() {
     { id: "byte-count", value: stats.bytes, label: t("charCount.stats.bytes") },
   ];
 
-  const copyText = () => {
-    navigator.clipboard.writeText(text);
-    showToast(t("charCount.toast.copied"));
+  const copyText = async () => {
+    const ok = await copyToClipboard(text);
+    showToast(ok ? t("charCount.toast.copied") : t("charCount.toast.copyFailed"));
   };
 
   const clearText = () => {

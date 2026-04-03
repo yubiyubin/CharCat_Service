@@ -2,25 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-/** 각 href → header 번역 키 매핑 */
-const TOOL_KEY: Record<string, string> = {
-  "/char-count": "header.charCount",
-  "/kor-eng": "header.korEng",
-  "/text-diff": "header.textDiff",
-  "/jamo-compose": "header.jamoCompose",
-  "/case-convert": "header.caseConvert",
-  "/emoji": "header.emoji",
-};
-
-const TOOL_ICON: Record<string, string> = {
-  "/char-count": "📊",
-  "/kor-eng": "🔄",
-  "/text-diff": "🔍",
-  "/jamo-compose": "🧩",
-  "/case-convert": "Aa",
-  "/emoji": "😊",
-};
+import { getToolByHref } from "@/data/tools";
 
 interface RelatedToolsProps {
   /** 현재 페이지의 href (목록에서 제외됨) */
@@ -41,16 +23,20 @@ export default function RelatedTools({ currentPage, tools }: RelatedToolsProps) 
         {t("common.relatedToolsTitle")}
       </p>
       <div className="flex flex-wrap gap-2">
-        {filtered.map((href) => (
-          <Link
-            key={href}
-            href={href}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-full bg-primary/[0.06] dark:bg-primary/10 text-primary/80 dark:text-primary-light border border-primary/10 dark:neon-border hover:bg-primary/15 hover:border-primary/30 transition-all"
-          >
-            <span>{TOOL_ICON[href]}</span>
-            <span>{t(TOOL_KEY[href])}</span>
-          </Link>
-        ))}
+        {filtered.map((href) => {
+          const tool = getToolByHref(href);
+          if (!tool) return null;
+          return (
+            <Link
+              key={href}
+              href={href}
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-full bg-primary/[0.06] dark:bg-primary/10 text-primary/80 dark:text-primary-light border border-primary/10 dark:neon-border hover:bg-primary/15 hover:border-primary/30 transition-all"
+            >
+              <span>{tool.icon}</span>
+              <span>{t(tool.labelKey)}</span>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

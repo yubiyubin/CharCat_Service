@@ -19,7 +19,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Only run this code on the browser after hydration
     const saved = localStorage.getItem("language") as Language | null;
-    
+
     if (saved === "ko" || saved === "en") {
       // eslint-disable-next-line
       setLanguage(saved);
@@ -29,9 +29,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         setLanguage("en");
       }
     }
-    
+
     setIsMounted(true);
   }, []);
+
+  // Sync html[lang] attribute for accessibility and SEO (screen readers, JS-rendered crawlers)
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   // Hydration fix: don't render translating children until language is confirmed
   if (!isMounted) {

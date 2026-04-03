@@ -17,7 +17,7 @@ export const ko = {
     heroTitle1: "무료 온라인",
     heroTitle2: "텍스트 도구 모음",
     heroSubtitle:
-      "설치나 가입 없이 웹 브라우저에서 즉각 접속 가능한 CharCat으로 문서 작성과 코딩, 학습의 효율을 극대화하세요.",
+      "설치도 가입도 필요 없습니다. 브라우저를 열고 바로 시작하세요.",
     feature1Badge: "01 / 문서 최적화",
     feature1Title: "글자수 및 바이트 계산",
     feature1Desc:
@@ -33,11 +33,11 @@ export const ko = {
     pickTool: "필요한 도구를 선택하세요!",
     tools: {
       charCountDesc: "글자수, 단어수, 바이트 수를 실시간으로 세어보세요.",
-      korEngDesc: "한영 오타를 자동으로 변환해드립니다.",
-      textDiffDesc: "두 텍스트의 차이점을 색상으로 한눈에 비교하세요.",
-      jamoComposeDesc: "분리된 자음과 모음을 완성된 글자로 조합해드립니다.",
+      korEngDesc: "한영 오타를 자동으로 변환합니다.",
+      textDiffDesc: "두 텍스트의 차이점을 색상으로 한눈에 비교합니다.",
+      jamoComposeDesc: "분리된 자음과 모음을 완성된 글자로 조합합니다.",
       caseConvertDesc: "영문 대소문자를 다양한 형식으로 변환합니다.",
-      emojiDesc: "이모티콘와 특수문자를 클릭 한 번으로 복사하세요.",
+      emojiDesc: "이모티콘과 특수문자를 클릭 한 번으로 복사하세요.",
     },
   },
   common: {
@@ -180,7 +180,7 @@ export const ko = {
     searchResult: "검색 결과",
     searchUnit: "개",
     noResults: "검색 결과가 없습니다",
-    toast: { copied: "복사되었습니다!" },
+    toast: { copied: "복사되었습니다!", copyFailed: "복사에 실패했습니다." },
     sectionTitle: "이모티콘 · 특수문자 모음이란?",
     sectionDesc:
       "자주 쓰는 이모티콘와 특수문자를 카테고리별로 정리하여 클릭 한 번으로 복사할 수 있는 도구입니다. SNS, 블로그, 문서 작성 시 원하는 기호를 빠르게 찾아 사용하세요.",

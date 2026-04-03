@@ -122,7 +122,7 @@ describe("TextDiff 페이지 — 텍스트 비교", () => {
     const copyBtn = screen.getByText("결과 복사");
     await userEvent.click(copyBtn);
 
-    // diff 결과가 +/-로 prefixed된 문자열로 복사됨
+    // computeTextDiff 기반: 줄 단위 -/+ prefix 포함 문자열로 복사됨
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
     const copied = vi.mocked(navigator.clipboard.writeText).mock.calls[0][0];
     expect(copied).toContain("-abc");
