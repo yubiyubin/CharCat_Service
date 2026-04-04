@@ -8,7 +8,9 @@ export default function ModeSwitch() {
   };
   return (
     <button
+      type="button"
       onClick={onClick}
+      aria-label={theme === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환"}
       className="md:ml-2 px-3 py-1 rounded-full bg-surface-muted border border-border-input text-text-secondary text-xs font-bold hover:bg-primary/10 hover:text-primary dark:neon-border dark:neon-border-hover dark:hover:text-primary-light transition-premium flex items-center gap-1"
     >
       <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

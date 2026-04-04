@@ -50,9 +50,11 @@ export default function EmojiPicker() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("emoji.searchPlaceholder")}
-            className="w-full px-4 py-2.5 pl-10 rounded-lg border border-border-input bg-surface text-text-base text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-premium"
+            aria-label={t("emoji.searchPlaceholder")}
+            className="w-full px-4 py-2.5 pl-10 rounded-lg border border-border-input bg-surface text-text-primary text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-premium"
           />
           <svg
+            aria-hidden="true"
             className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary"
             fill="none"
             viewBox="0 0 24 24"
@@ -62,8 +64,10 @@ export default function EmojiPicker() {
           </svg>
           {search && (
             <button
+              type="button"
               onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-base transition-premium"
+              aria-label="검색어 지우기"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition-premium"
             >
               ✕
             </button>
@@ -77,7 +81,10 @@ export default function EmojiPicker() {
             {emojiCategories.map((cat) => (
               <button
                 key={cat.id}
+                type="button"
                 onClick={() => setActiveCategory(cat.id)}
+                aria-label={t(cat.labelKey)}
+                aria-pressed={activeCategory === cat.id}
                 className={`w-full px-2 py-2 rounded-lg text-sm font-bold transition-premium whitespace-nowrap ${
                   activeCategory === cat.id
                     ? "bg-primary/20 text-primary dark:neon-border"
@@ -108,9 +115,11 @@ export default function EmojiPicker() {
             displayEmojis.map((emoji, idx) => (
               <button
                 key={`${emoji}-${idx}`}
+                type="button"
                 onClick={() => handleCopy(emoji)}
-                className="aspect-square flex items-center justify-center text-2xl md:text-3xl rounded-lg hover:bg-primary/10 hover:scale-110 active:scale-95 transition-premium cursor-pointer"
+                aria-label={`${emoji} 복사`}
                 title={emoji}
+                className="aspect-square flex items-center justify-center text-2xl md:text-3xl rounded-lg hover:bg-primary/10 hover:scale-110 active:scale-95 transition-premium cursor-pointer"
               >
                 {emoji}
               </button>
@@ -126,7 +135,7 @@ export default function EmojiPicker() {
         <section className={`${styles.section}`}>
           <div id="about" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("emoji.sectionTitle")}</h2>
-            <p className="mt-4 text-sm md:text-base text-text-light leading-relaxed">
+            <p className="mt-4 text-sm md:text-base text-text-secondary leading-relaxed">
               {t("emoji.sectionDesc")}
             </p>
           </div>

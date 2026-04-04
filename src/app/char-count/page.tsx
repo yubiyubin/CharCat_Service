@@ -160,7 +160,7 @@ export default function CharCount() {
 
           <div id="byte-guide" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("charCount.section2Title")}</h2>
-            <p className="mt-4 text-sm text-text-light leading-relaxed">
+            <p className="mt-4 text-sm text-text-secondary leading-relaxed">
               {t("charCount.section2Desc")}
             </p>
             <div className="mt-4 bg-surface rounded-lg p-4 space-y-2">
