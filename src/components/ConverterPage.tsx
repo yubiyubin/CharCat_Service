@@ -66,8 +66,10 @@ export default function ConverterPage({
             <div className={styles.flexContainer}>
               <span className={styles.w20TextCenter}>{fromLabel}</span>
               <button
+                type="button"
                 data-testid="direction-toggle"
                 onClick={() => setIsForward((prev) => !prev)}
+                aria-label={`${fromLabel}를 ${toLabel}로 변환`}
                 className={styles.convertButton}
               >
                 <ConvertArrow />
@@ -103,13 +105,13 @@ export default function ConverterPage({
         <section className={styles.section}>
           <div id="about" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{about.title}</h2>
-            <p className="mt-4 text-sm md:text-base text-text-light leading-relaxed">
+            <p className="mt-4 text-sm md:text-base text-text-secondary leading-relaxed">
               {about.description}
             </p>
           </div>
 
-          <div id="examples" className="bg-primary/10 rounded-lg p-6">
-            <h2 className="text-lg font-bold text-text-base">
+          <div id="examples" className={styles.sectionBackground}>
+            <h2 className={styles.sectionTitle}>
               {examples.title}
             </h2>
             <div className="mt-4 space-y-3">
@@ -119,8 +121,8 @@ export default function ConverterPage({
                   className="grid grid-cols-3 items-center text-sm md:text-base bg-surface rounded-lg px-6 py-3"
                 >
                   <span className="text-text-secondary font-mono">{ex.from}</span>
-                  <span className="text-primary-600 text-center">→</span>
-                  <span className="text-text-base font-medium text-right">
+                  <span className="text-primary text-center">→</span>
+                  <span className="text-text-primary font-medium text-right">
                     {ex.to}
                   </span>
                 </div>

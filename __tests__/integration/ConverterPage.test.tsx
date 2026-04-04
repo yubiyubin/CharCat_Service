@@ -71,7 +71,7 @@ describe("ConverterPage 컴포넌트", () => {
     render(<ConverterPage {...mockProps} />);
     expect(screen.getByText("소문자")).toBeInTheDocument();
 
-    const swapBtn = screen.getByRole("button", { name: "" });
+    const swapBtn = screen.getByTestId("direction-toggle");
     await userEvent.click(swapBtn);
 
     await waitFor(() => {
@@ -82,7 +82,7 @@ describe("ConverterPage 컴포넌트", () => {
   it("방향 전환 후 역함수(toLowerCase) 적용", async () => {
     render(<ConverterPage {...mockProps} />);
 
-    const swapBtn = screen.getByRole("button", { name: "" });
+    const swapBtn = screen.getByTestId("direction-toggle");
     await userEvent.click(swapBtn);
 
     const textarea = screen.getByPlaceholderText("대문자를 입력하세요");
@@ -135,7 +135,7 @@ describe("ConverterPage 컴포넌트", () => {
     render(<ConverterPage {...arrayTitleProps} />);
     expect(screen.getByText("정방향 제목")).toBeInTheDocument();
 
-    const swapBtn = screen.getByRole("button", { name: "" });
+    const swapBtn = screen.getByTestId("direction-toggle");
     await userEvent.click(swapBtn);
 
     await waitFor(() => {

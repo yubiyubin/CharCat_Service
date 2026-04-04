@@ -22,6 +22,6 @@ export const styles = {
   actionButtonContainer: "flex gap-3 mt-4 self-end shrink-0",
   section: "mt-16 mb-12 grid gap-6 text-text-secondary font-medium",
   sectionBackground: "bg-primary/10 dark:glass-card dark:neon-border rounded-xl p-6",
-  sectionTitle: "text-lg font-bold text-text-base",
+  sectionTitle: "text-lg font-bold text-text-primary",
   grid: "grid grid-cols-1 lg:grid-cols-2 gap-4",
 };

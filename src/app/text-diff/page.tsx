@@ -101,7 +101,7 @@ export default function TextDiff() {
           {/* 데스크탑 전용: 라벨 + 스왑 버튼 상단 행 */}
           <div className={`${styles.flexContainer} hidden md:flex`}>
             <span className="flex-1 text-center">{t("textDiff.labelOriginal")}</span>
-            <button data-testid="swap-button" onClick={onClickConvert} className={styles.convertButton}>
+            <button type="button" data-testid="swap-button" onClick={onClickConvert} aria-label="원본과 수정본 교체" className={styles.convertButton}>
               <ConvertArrow />
             </button>
             <span className="flex-1 text-center">{t("textDiff.labelModified")}</span>
@@ -125,7 +125,7 @@ export default function TextDiff() {
             <div>
               <div className="md:hidden flex items-center justify-between mt-2 mb-0 px-2">
                 <span className="text-sm font-bold text-text-primary/60">{t("textDiff.labelModified")}</span>
-                <button onClick={onClickConvert} className={`${styles.convertButton} text-xs`}>
+                <button type="button" onClick={onClickConvert} aria-label="원본과 수정본 교체" className={`${styles.convertButton} text-xs`}>
                   <ConvertArrow />
                 </button>
               </div>
@@ -164,7 +164,7 @@ export default function TextDiff() {
         <section className={styles.section}>
           <div id="about" className={styles.sectionBackground}>
             <h2 className={styles.sectionTitle}>{t("textDiff.sectionTitle")}</h2>
-            <p className="mt-4 text-sm text-text-light leading-relaxed whitespace-pre-line">
+            <p className="mt-4 text-sm text-text-secondary leading-relaxed whitespace-pre-line">
               {t("textDiff.sectionDesc")}
             </p>
           </div>
